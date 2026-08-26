@@ -119,7 +119,7 @@
   function cacheParallax() {
     pItems = [];
     document.querySelectorAll('[data-parallax]').forEach(function (el) {
-      var img = el.querySelector(':scope > img');
+      var img = el.querySelector(':scope > img, :scope > .ph');
       pItems.push({
         node: img || el,
         speed: parseFloat(el.getAttribute('data-parallax')) || 0,
