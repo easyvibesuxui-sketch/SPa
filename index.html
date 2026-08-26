@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NAMI — Bathhouse &amp; Sea Garden, Batumi</title>
+<meta name="description" content="NAMI is a textile-free bathhouse and sea garden in Batumi. Twelve saunas, four waters, private hammam suites and nocturne nights on the Black Sea.">
+<meta name="theme-color" content="#0B0908">
+<meta property="og:title" content="NAMI — Bathhouse &amp; Sea Garden, Batumi">
+<meta property="og:description" content="Steam. Salt. Skin. A house for slowness on the Black Sea.">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Serif+Georgian:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ══ GRAIN + VIGNETTE ══ -->
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+
+<!-- ══ CURSOR ══ -->
+<div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"><span class="cursor__label"></span></span></div>
+
+<!-- ══ PRELOADER ══ -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader__inner">
+    <div class="loader__mark">
+      <svg class="mark" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+        <path class="mark__lens" d="M22 3c9 6.4 13 12.7 13 19S31 34.6 22 41C13 34.6 9 28.3 9 22S13 9.4 22 3Z" stroke="currentColor" stroke-width=".9"/>
+        <path class="mark__wave" d="M11.6 24.6c2.6-2.6 5.2-2.6 7.8 0s5.2 2.6 7.8 0 5.2-2.6 5.2-2.6" stroke="currentColor" stroke-width=".9" stroke-linecap="round"/>
+        <circle class="mark__drop" cx="22" cy="15.6" r="1.6" fill="currentColor"/>
+      </svg>
+    </div>
+    <div class="loader__word" aria-hidden="true"><span>N</span><span>A</span><span>M</span><span>I</span></div>
+    <div class="loader__meta"><span class="loader__ka">ნამი</span><span class="loader__num" id="loaderNum">00</span></div>
+    <div class="loader__bar"><i id="loaderBar"></i></div>
+  </div>
+</div>
+
+<!-- ══ SCROLL PROGRESS ══ -->
+<div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+
+<!-- ══ HEADER ══ -->
+<header class="header" id="header">
+  <a class="logo" href="#top" data-cursor="home" aria-label="NAMI — home">
+    <svg class="mark" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+      <path d="M22 3c9 6.4 13 12.7 13 19S31 34.6 22 41C13 34.6 9 28.3 9 22S13 9.4 22 3Z" stroke="currentColor" stroke-width=".9"/>
+      <path d="M11.6 24.6c2.6-2.6 5.2-2.6 7.8 0s5.2 2.6 7.8 0 5.2-2.6 5.2-2.6" stroke="currentColor" stroke-width=".9" stroke-linecap="round"/>
+      <circle cx="22" cy="15.6" r="1.6" fill="currentColor"/>
+    </svg>
+    <span class="logo__type">NAMI</span>
+    <span class="logo__sub">Bathhouse &amp; Sea Garden</span>
+  </a>
+
+  <nav class="nav" aria-label="Primary">
+    <a href="#house"><span>House</span></a>
+    <a href="#rituals"><span>Rituals</span></a>
+    <a href="#water"><span>Water</span></a>
+    <a href="#touch"><span>Touch</span></a>
+    <a href="#nocturne"><span>After Dark</span></a>
+    <a href="#tickets"><span>Tickets</span></a>
+  </nav>
+
+  <div class="header__right">
+    <a class="btn btn--ghost" href="#tickets" data-cursor="book"><span>Book</span><em>ჯავშანი</em></a>
+    <button class="burger" id="burger" data-cursor="menu" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><i></i><i></i></button>
+  </div>
+</header>
+
+<!-- ══ MENU OVERLAY ══ -->
+<div class="menu" id="menu" aria-hidden="true">
+  <div class="menu__bg"></div>
+  <div class="menu__grid">
+    <nav class="menu__nav" aria-label="Overlay">
+      <a href="#house" data-img="0"><i>01</i><span>The House</span></a>
+      <a href="#rituals" data-img="1"><i>02</i><span>Rituals</span></a>
+      <a href="#water" data-img="2"><i>03</i><span>Water</span></a>
+      <a href="#touch" data-img="3"><i>04</i><span>Touch</span></a>
+      <a href="#nocturne" data-img="4"><i>05</i><span>After Dark</span></a>
+      <a href="#table" data-img="5"><i>06</i><span>Table</span></a>
+      <a href="#tickets" data-img="6"><i>07</i><span>Hours &amp; Tickets</span></a>
+      <a href="#find" data-img="7"><i>08</i><span>Find Us</span></a>
+    </nav>
+    <div class="menu__side">
+      <div class="menu__media" id="menuMedia"></div>
+      <div class="menu__info">
+        <p class="eyebrow">Batumi · Georgia</p>
+        <p>12 Sherif Khimshiashvili St<br>Batumi 6010</p>
+        <p><a href="tel:+995422000012">+995 422 00 00 12</a><br><a href="mailto:hello@nami.ge">hello@nami.ge</a></p>
+        <p class="menu__hours">Daily 09:00 — 00:00<br>Nocturne Fri &amp; Sat — 02:00</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ════════════ HERO ════════════ -->
+<section class="hero" id="top">
+  <div class="hero__media" data-parallax="-0.18">
+    <img src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=2000&q=75"
+         data-fallback="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2000&q=75"
+         alt="Warm candlelit walnut interior of the Nami bathhouse" fetchpriority="high" decoding="async">
+  </div>
+  <div class="hero__wash" aria-hidden="true"></div>
+  <div class="hero__glow" aria-hidden="true"></div>
+
+  <div class="rules" aria-hidden="true">
+    <i class="rules__v" style="--x:26%"></i>
+    <i class="rules__v" style="--x:74%"></i>
+    <i class="rules__h" style="--y:38%"></i>
+    <i class="rules__h" style="--y:76%"></i>
+  </div>
+
+  <div class="hero__top">
+    <span class="eyebrow">Batumi · 41.64° N</span>
+    <span class="eyebrow eyebrow--r">Textile-free · 18+</span>
+  </div>
+
+  <h1 class="hero__title" data-parallax="0.06">
+    <span class="line"><span class="split" data-split="chars">STEAM</span></span>
+    <span class="line line--i"><span class="split" data-split="chars">SALT</span></span>
+    <span class="line line--ii"><span class="split" data-split="chars">SKIN</span></span>
+  </h1>
+
+  <div class="hero__block" data-parallax="0.14">
+    <p class="hero__block-t">BATH HOUSE</p>
+    <p class="hero__block-t">&amp; SEA GARDEN</p>
+    <p class="hero__block-s">A house for slowness on the Black Sea. Twelve saunas, four waters, one long exhale.</p>
+  </div>
+
+  <div class="hero__bottom">
+    <a class="scrollcue" href="#intro" data-cursor="scroll"><span>Scroll</span><i></i></a>
+    <p class="hero__ka">ნამი — <em>dew</em></p>
+  </div>
+</section>
+
+<!-- ════════════ MARQUEE ════════════ -->
+<div class="marquee" data-marquee aria-hidden="true">
+  <div class="marquee__track">
+    <span>ნამი</span><b>·</b><span>Silence</span><b>·</b><span>Steam</span><b>·</b><span>Salt</span><b>·</b><span>Skin</span><b>·</b><span>ნამი</span><b>·</b><span>Silence</span><b>·</b><span>Steam</span><b>·</b><span>Salt</span><b>·</b><span>Skin</span><b>·</b>
+  </div>
+</div>
+
+<!-- ════════════ 01 INTRO ════════════ -->
+<section class="intro" id="intro" data-section="01" data-label="Intro">
+  <div class="intro__inner">
+    <div class="intro__left">
+      <p class="eyebrow reveal">01 — Intro</p>
+      <h2 class="h-display reveal-up">Nami is a house<br>for <em>slowness.</em></h2>
+      <p class="lede" data-split="words">Twelve saunas, four waters and one long exhale, five minutes from the sea. We keep the lights low, the voices lower, and the phones outside. What happens here is simple — heat, cold, rest, repeat — until the body remembers itself.</p>
+      <p class="sig reveal">— ნამი, <em>dew.</em> The water that arrives without a sound.</p>
+    </div>
+    <div class="intro__right">
+      <figure class="media media--tall cover" data-parallax="0.1">
+        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1200&q=75"
+             data-fallback="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=75"
+             alt="Candles and warm stones in a dim treatment room" loading="lazy" decoding="async">
+      </figure>
+      <p class="caption reveal">900 candles, lit at dusk.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ 02 HOUSE ════════════ -->
+<section class="house" id="house" data-section="02" data-label="The House">
+  <div class="house__head">
+    <p class="eyebrow reveal">02 — The House</p>
+    <h2 class="h-display h-display--wide reveal-up">Warm walnut,<br>black river basalt,<br><em>unlacquered brass.</em></h2>
+  </div>
+
+  <div class="house__pair">
+    <figure class="media media--a cover" data-parallax="0.14">
+      <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=75"
+           data-fallback="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=75"
+           alt="Low-lit lounge with timber walls and cove lighting" loading="lazy" decoding="async">
+      <figcaption class="caption">The long room, 21:10</figcaption>
+    </figure>
+    <div class="house__copy">
+      <p class="p reveal">Nami sits inside a former customs warehouse on the old port line, six minutes from Batumi Boulevard. We kept the 1912 brick and let everything else go quiet: oiled walnut, basalt lifted from the Chorokhi riverbed, linen the colour of wet sand, brass that is allowed to age.</p>
+      <p class="p reveal">Nothing here is polished to a shine. Warmth is the only decoration — a strip of light behind a screen, a fire that is never fully out, steam that finds the ceiling and comes back down as rain.</p>
+      <a class="link" href="#rituals" data-cursor="view"><span>See the rituals</span><i></i></a>
+    </div>
+    <figure class="media media--b cover" data-parallax="-0.08">
+      <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1100&q=75"
+           data-fallback="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1100&q=75"
+           alt="Stone bath detail with soft daylight" loading="lazy" decoding="async">
+    </figure>
+  </div>
+
+  <ul class="stats">
+    <li class="reveal-up"><b data-count="12">0</b><span>saunas &amp; steam rooms</span></li>
+    <li class="reveal-up"><b data-count="4">0</b><span>waters, 8° to 36°</span></li>
+    <li class="reveal-up"><b data-count="2400" data-suffix=" m²">0</b><span>of sea garden</span></li>
+    <li class="reveal-up"><b data-count="900">0</b><span>candles at dusk</span></li>
+  </ul>
+</section>
+
+<!-- ════════════ 03 RITUALS (horizontal) ════════════ -->
+<section class="hs" id="rituals" data-hscroll data-section="03" data-label="Rituals">
+  <div class="hs__sticky">
+    <div class="hs__head">
+      <p class="eyebrow">03 — Rituals</p>
+      <h2 class="h-display">Every half hour,<br><em>something begins.</em></h2>
+      <p class="hs__hint"><i></i> drag / scroll</p>
+    </div>
+    <div class="hs__track" id="hsTrack">
+      <article class="rcard">
+        <figure class="media cover"><img src="https://images.unsplash.com/photo-1610970881699-44a5587cabec?auto=format&fit=crop&w=1000&q=75" data-fallback="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1000&q=75" alt="Hot stones and steam in a wooden sauna" loading="lazy" decoding="async"></figure>
+        <div class="rcard__body"><i>01</i><h3>Sea Aufguss</h3><p>Black Sea salt thrown onto 90° stones, towel work in four rounds. The house standard, every half hour.</p><span class="rcard__meta">15 min · 90°C · included</span></div>
+      </article>
+      <article class="rcard">
+        <figure class="media cover"><img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1000&q=75" data-fallback="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1000&q=75" alt="Salt scrub prepared in a bowl" loading="lazy" decoding="async"></figure>
+        <div class="rcard__body"><i>02</i><h3>Honey &amp; Salt</h3><p>Adjarian honey and coarse salt worked into the skin in the low steam room, rinsed with cold rain.</p><span class="rcard__meta">30 min · 45°C · included</span></div>
+      </article>
+      <article class="rcard">
+        <figure class="media cover"><img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1000&q=75" data-fallback="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1000&q=75" alt="Oil poured over open hands" loading="lazy" decoding="async"></figure>
+        <div class="rcard__body"><i>03</i><h3>Walnut Oil</h3><p>Cold-pressed walnut and bay laurel, warmed to body temperature, applied slowly and left to be absorbed.</p><span class="rcard__meta">20 min · included</span></div>
+      </article>
+      <article class="rcard">
+        <figure class="media cover"><img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1000&q=75" data-fallback="https://images.unsplash.com/photo-1439066615861-d1af74d74000?auto=format&fit=crop&w=1000&q=75" alt="Cold mist over dark water" loading="lazy" decoding="async"></figure>
+        <div class="rcard__body"><i>04</i><h3>The Ice Well</h3><p>Eight degrees, chest deep, thirty seconds. Breathe out longer than you breathe in. Then the fire room.</p><span class="rcard__meta">30 sec · 8°C · included</span></div>
+      </article>
+      <article class="rcard">
+        <figure class="media cover"><img src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=1000&q=75" data-fallback="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1000&q=75" alt="Dark relaxation room with warm light" loading="lazy" decoding="async"></figure>
+        <div class="rcard__body"><i>05</i><h3>The Silence Room</h3><p>Twelve beds, one rule. No speech, no screens, no clocks on the wall. We wake you only if you ask.</p><span class="rcard__meta">60 min · silent · included</span></div>
+      </article>
+      <article class="rcard">
+        <figure class="media cover"><img src="https://images.unsplash.com/photo-1439066615861-d1af74d74000?auto=format&fit=crop&w=1000&q=75" data-fallback="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=75" alt="Sea horizon at dusk" loading="lazy" decoding="async"></figure>
+        <div class="rcard__body"><i>06</i><h3>Sunset Deck</h3><p>The west terrace opens at 19:40. Robes, amber wine, and the sea doing the only talking.</p><span class="rcard__meta">daily · 19:40 · included</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ 04 WATER ════════════ -->
+<section class="water" id="water" data-section="04" data-label="Water">
+  <h2 class="water__word" data-parallax="-0.22" aria-hidden="true">WATER</h2>
+  <div class="water__stage">
+    <figure class="media water__m water__m--1 cover" data-parallax="0.2">
+      <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1200&q=75" data-fallback="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=1200&q=75" alt="Still indoor pool lit from beneath" loading="lazy" decoding="async">
+    </figure>
+    <figure class="media water__m water__m--2 cover" data-parallax="-0.14">
+      <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=1000&q=75" data-fallback="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1000&q=75" alt="Heated outdoor pool steaming at night" loading="lazy" decoding="async">
+    </figure>
+    <figure class="media water__m water__m--3 cover" data-parallax="0.32">
+      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=75" data-fallback="https://images.unsplash.com/photo-1439066615861-d1af74d74000?auto=format&fit=crop&w=900&q=75" alt="Black Sea shoreline" loading="lazy" decoding="async">
+    </figure>
+  </div>
+
+  <div class="water__copy">
+    <p class="eyebrow reveal">04 — Water</p>
+    <p class="lede lede--sm" data-split="words">Four temperatures, one instruction: stay until you forget the next one.</p>
+    <ul class="temps">
+      <li class="reveal-up"><b>32°</b><span>Indoor basin · 50 m² · 1.35 m deep</span></li>
+      <li class="reveal-up"><b>34°</b><span>Outdoor pool · steaming into the night</span></li>
+      <li class="reveal-up"><b>36°</b><span>Salt float · dark, domed, silent</span></li>
+      <li class="reveal-up"><b>08°</b><span>The ice well · thirty seconds is enough</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ════════════ 05 TOUCH ════════════ -->
+<section class="touch" id="touch" data-section="05" data-label="Touch">
+  <div class="touch__head">
+    <p class="eyebrow reveal">05 — Touch</p>
+    <h2 class="h-display reveal-up">Hands that<br><em>know the hour.</em></h2>
+    <p class="p p--narrow reveal">Book at the front desk or online. Treatments run from 10:00 to 23:00; the last pair of hands finishes at midnight.</p>
+  </div>
+
+  <ul class="tlist" id="tlist">
+    <li class="trow" data-img="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=800&q=70">
+      <span class="trow__i">01</span><h3>Deep Black Sea</h3><span class="trow__d">80 min</span><span class="trow__p">₾260</span>
+    </li>
+    <li class="trow" data-img="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=70">
+      <span class="trow__i">02</span><h3>Four Hands, One Silence</h3><span class="trow__d">50 min</span><span class="trow__p">₾420</span>
+    </li>
+    <li class="trow" data-img="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=70">
+      <span class="trow__i">03</span><h3>Hot Basalt</h3><span class="trow__d">60 min</span><span class="trow__p">₾240</span>
+    </li>
+    <li class="trow" data-img="https://images.unsplash.com/photo-1610970881699-44a5587cabec?auto=format&fit=crop&w=800&q=70">
+      <span class="trow__i">04</span><h3>Honey Ritual for Two</h3><span class="trow__d">90 min</span><span class="trow__p">₾560</span>
+    </li>
+    <li class="trow" data-img="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=70">
+      <span class="trow__i">05</span><h3>Face of the Garden</h3><span class="trow__d">45 min</span><span class="trow__p">₾190</span>
+    </li>
+    <li class="trow" data-img="https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=800&q=70">
+      <span class="trow__i">06</span><h3>Hammam Soap Foam</h3><span class="trow__d">40 min</span><span class="trow__p">₾180</span>
+    </li>
+  </ul>
+  <div class="tpreview" id="tpreview" aria-hidden="true"><img alt="" decoding="async"></div>
+</section>
+
+<!-- ════════════ 06 AFTER DARK ════════════ -->
+<section class="dark" id="nocturne" data-section="06" data-label="After Dark">
+  <div class="dark__media" data-parallax="-0.12">
+    <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1800&q=75"
+         data-fallback="https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=1800&q=75"
+         alt="Dim room, low bed, single warm lamp" loading="lazy" decoding="async">
+  </div>
+  <div class="dark__wash" aria-hidden="true"></div>
+
+  <div class="dark__inner">
+    <p class="eyebrow eyebrow--amber reveal">06 — After Dark · 18+</p>
+    <h2 class="h-display h-display--xl reveal-up">After dark<br>the house<br><em>belongs to two.</em></h2>
+    <p class="lede lede--sm" data-split="words">Private hammam suites with a door that locks. A bath wide enough to be shared, candlelight only, a bell if you need us. We leave the wine on the ledge and disappear.</p>
+
+    <div class="dark__cards">
+      <article class="dcard reveal-up">
+        <h3>The Private Hammam</h3>
+        <p>Marble belly-stone, foam ritual for two, a cold rain shower and an hour no one interrupts.</p>
+        <span>2 guests · 120 min · ₾890</span>
+      </article>
+      <article class="dcard reveal-up">
+        <h3>Nocturne Nights</h3>
+        <p>Fridays and Saturdays the lights drop to candle level, the music goes to a heartbeat, the house stays open until two.</p>
+        <span>Fri &amp; Sat · 20:00 — 02:00</span>
+      </article>
+      <article class="dcard reveal-up">
+        <h3>The Rule</h3>
+        <p>Adults only. Textile-free in the sauna world. Ask before you look, ask before you touch, and take the answer as given.</p>
+        <span>18+ · discretion, always</span>
+      </article>
+    </div>
+    <a class="btn btn--amber" href="#tickets" data-cursor="book"><span>Reserve a suite</span><i></i></a>
+  </div>
+</section>
+
+<!-- ════════════ 07 TABLE ════════════ -->
+<section class="table" id="table" data-section="07" data-label="Table">
+  <div class="table__inner">
+    <div class="table__copy">
+      <p class="eyebrow reveal">07 — Table</p>
+      <h2 class="h-display reveal-up">Bathrobe<br><em>dining.</em></h2>
+      <p class="p reveal">A short Georgian–Mediterranean menu written each morning: grilled kalmakhi trout, ajapsandali, warm bread with sulguni, figs in walnut honey. Amber wine from Kakheti, poured in the room where you are sitting, however you are dressed.</p>
+      <ul class="table__facts">
+        <li class="reveal"><b>12:00 — 23:30</b><span>daily, no shoes required</span></li>
+        <li class="reveal"><b>Kakhetian amber</b><span>eleven qvevri wines by the glass</span></li>
+        <li class="reveal"><b>Charge to your key</b><span>settle everything on the way out</span></li>
+      </ul>
+    </div>
+    <figure class="media media--wide cover" data-parallax="0.12">
+      <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1400&q=75"
+           data-fallback="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1400&q=75"
+           alt="Warm, low-lit restaurant room" loading="lazy" decoding="async">
+    </figure>
+  </div>
+</section>
+
+<!-- ════════════ 08 TICKETS ════════════ -->
+<section class="tickets" id="tickets" data-section="08" data-label="Hours &amp; Tickets">
+  <div class="tickets__head">
+    <p class="eyebrow reveal">08 — Hours &amp; Tickets</p>
+    <h2 class="h-display h-display--wide reveal-up">Come for two hours.<br><em>Stay for the day.</em></h2>
+  </div>
+
+  <div class="tickets__grid">
+    <article class="tick reveal-up"><header><i>01</i><h3>Two Hours</h3></header><p class="tick__p">₾75<em> / ₾85 weekends</em></p><p class="tick__d">Enough for three rounds and one long lie-down.</p></article>
+    <article class="tick reveal-up"><header><i>02</i><h3>Four Hours</h3></header><p class="tick__p">₾110<em> / ₾125 weekends</em></p><p class="tick__d">The whole sauna world, unhurried, with lunch.</p></article>
+    <article class="tick tick--hl reveal-up"><header><i>03</i><h3>The Day</h3></header><p class="tick__p">₾150<em> / ₾175 weekends</em></p><p class="tick__d">Open to close. Robe, towel and slippers included.</p></article>
+    <article class="tick reveal-up"><header><i>04</i><h3>After Dark</h3></header><p class="tick__p">₾120<em> / entry from 19:00</em></p><p class="tick__d">Candlelight hours, adults only, until two on Fri &amp; Sat.</p></article>
+  </div>
+
+  <div class="tickets__foot">
+    <div class="hours reveal">
+      <p class="eyebrow">Opening hours</p>
+      <ul>
+        <li><span>Monday — Thursday</span><b>09:00 — 00:00</b></li>
+        <li><span>Friday — Saturday</span><b>09:00 — 02:00</b></li>
+        <li><span>Sunday</span><b>09:00 — 00:00</b></li>
+        <li><span>Last entry</span><b>22:00</b></li>
+      </ul>
+    </div>
+    <div class="notes reveal">
+      <p class="eyebrow">Good to know</p>
+      <p>Every ticket includes a linen robe, two towels and slippers. The sauna world is textile-free and adults only — 18+, without exception. Bring nothing; lockers, water and tea are on the house. Phones stay in the locker, and we mean it kindly.</p>
+      <a class="btn btn--ghost" href="#find" data-cursor="gift"><span>Gift a voucher</span><i></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ VOUCHER MARQUEE ════════════ -->
+<div class="marquee marquee--big" data-marquee aria-hidden="true">
+  <div class="marquee__track">
+    <span>Give an hour of silence</span><b>✦</b><span>Gift vouchers</span><b>✦</b><span>Give an hour of silence</span><b>✦</b><span>Gift vouchers</span><b>✦</b>
+  </div>
+</div>
+
+<!-- ════════════ 09 FIND ════════════ -->
+<section class="find" id="find" data-section="09" data-label="Find Us">
+  <div class="find__inner">
+    <div class="find__copy">
+      <p class="eyebrow reveal">09 — Find Us</p>
+      <h2 class="h-display reveal-up">Six minutes<br>from the <em>boulevard.</em></h2>
+      <address class="find__addr reveal">
+        12 Sherif Khimshiashvili St<br>
+        Batumi 6010, Adjara, Georgia<br><br>
+        <a href="tel:+995422000012" data-cursor="call">+995 422 00 00 12</a><br>
+        <a href="mailto:hello@nami.ge" data-cursor="mail">hello@nami.ge</a>
+      </address>
+      <ul class="find__list">
+        <li class="reveal"><b>By foot</b><span>6 min from Batumi Boulevard, along the old port line</span></li>
+        <li class="reveal"><b>By car</b><span>12 min from BUS airport · valet from 18:00</span></li>
+        <li class="reveal"><b>By sea</b><span>Mooring for eight, ask the desk</span></li>
+      </ul>
+    </div>
+    <figure class="media media--map cover" data-parallax="0.08">
+      <img src="https://images.unsplash.com/photo-1439066615861-d1af74d74000?auto=format&fit=crop&w=1200&q=75"
+           data-fallback="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=75"
+           alt="The Black Sea at dusk near Batumi" loading="lazy" decoding="async">
+      <figcaption class="caption">41.6438° N, 41.6398° E</figcaption>
+    </figure>
+  </div>
+</section>
+
+</main>
+
+<!-- ════════════ FOOTER ════════════ -->
+<footer class="footer">
+  <div class="footer__top">
+    <div>
+      <p class="eyebrow">NAMI · ნამი</p>
+      <p class="footer__line">Bathhouse &amp; Sea Garden<br>Batumi, Georgia</p>
+    </div>
+    <nav class="footer__nav" aria-label="Footer">
+      <a href="#house">House</a><a href="#rituals">Rituals</a><a href="#water">Water</a>
+      <a href="#touch">Touch</a><a href="#nocturne">After Dark</a><a href="#table">Table</a><a href="#tickets">Tickets</a>
+    </nav>
+    <div class="footer__meta">
+      <p>Daily 09:00 — 00:00<br>Fri &amp; Sat until 02:00</p>
+      <p><a href="mailto:hello@nami.ge">hello@nami.ge</a></p>
+    </div>
+  </div>
+  <div class="footer__word" data-parallax="0.05" aria-hidden="true">NAMI</div>
+  <div class="footer__bottom">
+    <p>© 2026 NAMI Batumi — concept redesign. Photography: Unsplash.</p>
+    <p><a href="#top" data-cursor="up">Back to top ↑</a></p>
+  </div>
+</footer>
+
+<div class="sectionmark" id="sectionmark" aria-hidden="true"><i id="smNum">01</i><span id="smLabel">Batumi</span></div>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
