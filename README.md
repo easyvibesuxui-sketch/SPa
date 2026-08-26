@@ -59,6 +59,15 @@ second URL; if both fail the frame degrades to a warm gradient instead of a brok
 To swap a photo, replace the `src`/`data-fallback` pair in `index.html` (the menu overlay set
 lives in `MENU_IMGS` in `assets/js/main.js`).
 
+**Sensual frames.** The house is adults-only, so a few frames are directed that way — skin,
+silk, low light, never explicit: the *After Dark* diptych, the *Walnut Oil* ritual card, and
+the hover previews on rows 02 and 04 of the treatment list. These were picked without being
+able to preview them from the build environment, so eyeball them once and swap any that miss —
+they are ordinary `src`/`data-fallback` pairs like every other frame.
+
+**Frame order** (document order, one `<img>` each): hero · intro · house A · house B ·
+rituals 01–06 · water ×3 · after-dark background · after-dark diptych ×2 · table · find us.
+
 ## Accessibility
 
 Semantic landmarks, skip link, focus-visible rings, `aria-expanded`/`aria-hidden` on the menu,
