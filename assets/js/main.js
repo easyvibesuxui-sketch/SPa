@@ -155,12 +155,11 @@
       entries.forEach(function (en) {
         if (!en.isIntersecting) return;
         en.target.classList.add('is-in');
-        if (en.target.hasAttribute('data-count')) countUp(en.target);
         io.unobserve(en.target);
       });
     }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
 
-    document.querySelectorAll('.reveal, .reveal-up, .cover, [data-count]').forEach(function (el, i) {
+    document.querySelectorAll('.reveal, .reveal-up, .cover').forEach(function (el, i) {
       el.style.setProperty('--i', i % 6);
       io.observe(el);
     });
@@ -168,37 +167,18 @@
     document.querySelectorAll('.reveal, .reveal-up, .cover').forEach(function (el) { el.classList.add('is-in'); });
   }
 
-  function countUp(el) {
-    var end = parseFloat(el.getAttribute('data-count')) || 0;
-    var suffix = el.getAttribute('data-suffix') || '';
-    if (reduce) { el.textContent = end.toLocaleString('en-US') + suffix; return; }
-    var t0 = performance.now(), dur = 1700;
-    (function step(t) {
-      var p = clamp((t - t0) / dur, 0, 1);
-      var e = 1 - Math.pow(1 - p, 4);
-      el.textContent = Math.round(end * e).toLocaleString('en-US') + suffix;
-      if (p < 1) requestAnimationFrame(step);
-    })(t0);
-  }
-
-  /* ── 7. section marker + nav state ────────────────────── */
-  var smEl = document.getElementById('sectionmark');
-  var smNum = document.getElementById('smNum');
-  var smLabel = document.getElementById('smLabel');
+  /* ── 7. nav state ─────────────────────────────────────── */
   var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav a'));
 
   if ('IntersectionObserver' in window) {
     var io2 = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         if (!en.isIntersecting) return;
-        var sec = en.target;
-        if (smNum) smNum.textContent = sec.getAttribute('data-section');
-        if (smLabel) smLabel.innerHTML = sec.getAttribute('data-label');
-        var id = '#' + sec.id;
+        var id = '#' + en.target.id;
         navLinks.forEach(function (a) { a.classList.toggle('is-current', a.getAttribute('href') === id); });
       });
     }, { rootMargin: '-45% 0px -45% 0px' });
-    document.querySelectorAll('[data-section]').forEach(function (s) { io2.observe(s); });
+    document.querySelectorAll('main section[id]').forEach(function (s) { io2.observe(s); });
   }
 
   /* ── 8. header ────────────────────────────────────────── */
@@ -338,7 +318,6 @@
 
   /* ── 13. loader ───────────────────────────────────────── */
   var loader = document.getElementById('loader');
-  var loaderNum = document.getElementById('loaderNum');
   var loaderBar = document.getElementById('loaderBar');
   var progressBar = document.getElementById('progressBar');
   var heroTitle = document.querySelector('.hero__title');
@@ -354,11 +333,9 @@
     var tick = setInterval(function () {
       var ceiling = loaded ? 100 : 88;
       pct = Math.min(ceiling, pct + (ceiling - pct) * 0.2 + Math.random() * 3.2);
-      if (loaderNum) loaderNum.textContent = String(Math.floor(pct)).padStart(2, '0');
       if (loaderBar) loaderBar.style.width = pct + '%';
       if (pct > 99.2 && !done) {
         done = true; clearInterval(tick);
-        if (loaderNum) loaderNum.textContent = '100';
         setTimeout(function () {
           loader.classList.add('is-done');
           measure();
@@ -400,7 +377,6 @@
       else if (y < lastY - 4) header.classList.remove('is-hidden');
       lastY = y;
     }
-    if (smEl) smEl.classList.toggle('is-on', y > vh * 0.85);
 
     /* parallax */
     for (var i = 0; i < pItems.length; i++) {

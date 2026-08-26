@@ -34,6 +34,18 @@ Single page, no framework, no build step. Open `index.html` — that is the whol
 Prices are in Georgian lari (₾), hours and rules are rewritten for a Batumi house.
 **All business details are fictional** — address, phone, e-mail and prices are placeholders.
 
+## House rules for the type
+
+Two things are deliberately absent, and should stay absent:
+
+* **No ordinal markers.** No `01 / 02 / 03` on sections, cards, rows, tickets or menu
+  items, and no section counter in the corner. Nothing here is a numbered sequence, so a
+  number would decorate rather than inform. Numbers appear only where the number *is* the
+  content — temperatures, durations, prices, opening hours.
+* **No shouted micro-labels.** Captions, card meta, durations and list labels are set in
+  sentence case; letterspaced uppercase is reserved for the few places it acts as a stamp —
+  navigation, buttons, and the two facts in the hero's top corners.
+
 ## Motion
 
 Everything is hand-written vanilla JS in `assets/js/main.js` (~430 lines, no dependencies):
@@ -47,7 +59,7 @@ Everything is hand-written vanilla JS in `assets/js/main.js` (~430 lines, no dep
 * **Word-by-word lighting** — lede paragraphs brighten word by word as they cross the viewport
 * **Char-split hero title**, released by the preloader
 * **Scroll-velocity marquees** — speed and direction respond to scrolling
-* **Count-up statistics**, scroll progress bar, live section counter, direction-aware header
+* Scroll progress bar and a direction-aware header
 * **Custom cursor** with contextual labels, and a cursor-following image preview on the
   treatments list
 * Preloader with a real progress read, film grain, vignette, breathing glow
