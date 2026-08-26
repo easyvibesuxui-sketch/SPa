@@ -54,19 +54,34 @@ Everything is hand-written vanilla JS in `assets/js/main.js` (~430 lines, no dep
 
 ## Images
 
-All photography is loaded from **Unsplash** CDN URLs. Each `<img>` carries a `data-fallback`
-second URL; if both fail the frame degrades to a warm gradient instead of a broken image.
-To swap a photo, replace the `src`/`data-fallback` pair in `index.html` (the menu overlay set
-lives in `MENU_IMGS` in `assets/js/main.js`).
+Fourteen frames use the supplied photography, kept in `assets/img/photos/` (re-encoded as
+progressive JPEG, quality 82, EXIF stripped — 703 KB for the set):
 
-**Sensual frames.** The house is adults-only, so a few frames are directed that way — skin,
-silk, low light, never explicit: the *After Dark* diptych, the *Walnut Oil* ritual card, and
-the hover previews on rows 02 and 04 of the treatment list. These were picked without being
-able to preview them from the build environment, so eyeball them once and swap any that miss —
-they are ordinary `src`/`data-fallback` pairs like every other frame.
+| File | Where it appears |
+|------|------------------|
+| `sauna-lamp.jpg` | hero · The Silence Room |
+| `bath-window.jpg` | intro · treatment preview 05 |
+| `sauna-cabin.jpg` | The House, left frame |
+| `infrared-slats.jpg` | The House, right frame |
+| `sauna-bench-dark.jpg` | Sea Aufguss · After Dark background · preview 03 |
+| `rain-face.jpg` | Honey & Salt · preview 01 |
+| `towel-figure.jpg` | Walnut Oil |
+| `wet-glass.jpg` | The Ice Well |
+| `pool-night.jpg` | Water, first frame · preview 04 |
+| `shower-dark.jpg` | Water, second frame · After Dark diptych, right |
+| `back-night.jpg` | After Dark diptych, left · preview 02 |
 
-**Frame order** (document order, one `<img>` each): hero · intro · house A · house B ·
-rituals 01–06 · water ×3 · after-dark background · after-dark diptych ×2 · table · find us.
+Four scenic frames — Sunset Deck, the third water frame, the table and Find Us — still point at
+**Unsplash** and carry a `data-fallback` second URL; if both fail the frame degrades to a warm
+gradient rather than a broken image. The menu overlay's set lives in `MENU_IMGS` in
+`assets/js/main.js`.
+
+## Video
+
+`assets/video/hero.mp4` plays full-bleed behind the hero and `assets/video/dark.mp4` behind
+*After Dark*; both are picked up automatically when the file is there, fade in over the
+photograph, and are skipped entirely under `prefers-reduced-motion`. See
+`assets/video/README.md` for the encoding notes.
 
 ## Accessibility
 

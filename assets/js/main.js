@@ -119,7 +119,7 @@
   function cacheParallax() {
     pItems = [];
     document.querySelectorAll('[data-parallax]').forEach(function (el) {
-      var img = el.querySelector(':scope > img, :scope > .ph');
+      var img = el.querySelector(':scope > video, :scope > img, :scope > .ph');
       pItems.push({
         node: img || el,
         speed: parseFloat(el.getAttribute('data-parallax')) || 0,
@@ -258,14 +258,14 @@
   var burger = document.getElementById('burger');
   var menuMedia = document.getElementById('menuMedia');
   var MENU_IMGS = [
-    'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=70',
-    'https://images.unsplash.com/photo-1610970881699-44a5587cabec?auto=format&fit=crop&w=800&q=70',
-    'https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=800&q=70',
-    'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=800&q=70',
-    'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=70',
-    'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=70',
-    'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=70',
-    'https://images.unsplash.com/photo-1439066615861-d1af74d74000?auto=format&fit=crop&w=800&q=70'
+    'assets/img/photos/sauna-cabin.jpg',
+    'assets/img/photos/sauna-lamp.jpg',
+    'assets/img/photos/pool-night.jpg',
+    'assets/img/photos/rain-face.jpg',
+    'assets/img/photos/back-night.jpg',
+    'assets/img/photos/bath-window.jpg',
+    'assets/img/photos/infrared-slats.jpg',
+    'assets/img/photos/wet-glass.jpg'
   ];
   if (menuMedia) {
     MENU_IMGS.forEach(function (src, i) {
@@ -302,6 +302,39 @@
     menu.classList.contains('is-open') ? closeMenu() : openMenu();
   });
   window.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+
+  /* ── 12b. background video ────────────────────────────────
+     Drop a file at the path below and it takes over the frame;
+     with no file the photograph simply stays. ---------------- */
+  function mountVideo(host, src) {
+    if (!host || reduce) return;
+    var v = document.createElement('video');
+    v.className = 'bgvideo';
+    v.muted = true; v.defaultMuted = true; v.loop = true; v.autoplay = true;
+    v.playsInline = true; v.preload = 'auto';
+    v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('aria-hidden', 'true');
+    v.addEventListener('loadeddata', function () {
+      host.classList.add('has-video');
+      var play = v.play();
+      if (play && play.catch) play.catch(function () {});
+      cacheParallax();
+    });
+    v.addEventListener('error', function () { v.remove(); });
+    v.src = src;
+    host.insertBefore(v, host.firstChild);
+  }
+
+  mountVideo(document.querySelector('.hero__media'), 'assets/video/hero.mp4');
+
+  var darkHost = document.querySelector('.dark__media');
+  if (darkHost && 'IntersectionObserver' in window) {
+    var ioV = new IntersectionObserver(function (en) {
+      if (!en[0].isIntersecting) return;
+      ioV.disconnect();
+      mountVideo(darkHost, 'assets/video/dark.mp4');
+    }, { rootMargin: '80% 0px' });
+    ioV.observe(darkHost);
+  }
 
   /* ── 13. loader ───────────────────────────────────────── */
   var loader = document.getElementById('loader');
