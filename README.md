@@ -1,11 +1,11 @@
-# NAMI — Bathhouse & Sea Garden, Batumi
+# NAMI — Bathhouse & Mountain Garden, Goderdzi Pass
 
 A concept **redesign of [vabali spa](https://www.vabali.de/en/berlin/)**: the content structure is
 kept (sauna world, pools, treatments, restaurant, day tickets, opening hours, vouchers, location),
 everything else is new — brand, name, logo, city, art direction and motion.
 
-* **Name / brand:** NAMI (ქართ. *ნამი* — "dew"), a textile-free bathhouse and sea garden
-* **Location:** Batumi, Adjara, Georgia (Black Sea) — instead of Berlin
+* **Name / brand:** NAMI (ქართ. *ნამი* — "dew"), a textile-free bathhouse and mountain garden
+* **Location:** the Goderdzi Pass, 2,025 m, ninety-five kilometres above Batumi in Adjara, Georgia — instead of Berlin
 * **Idea:** calm, intimacy and a quiet erotic charge — adults-only, candlelight, private hammam suites
 * **UI direction:** taken from the three reference images — deep walnut/espresso ground, warm cove
   lighting, oversized editorial serif split across lines, hairline crosshair rules, thin dividers,
@@ -31,7 +31,7 @@ Single page, no framework, no build step. Open `index.html` — that is the whol
 | — | Voucher marquee | Gift vouchers |
 | 09 | The road up — the drive drawn on a map as you scroll | Location & getting here |
 
-Prices are in Georgian lari (₾), hours and rules are rewritten for a Batumi house.
+Prices are in Georgian lari (₾), hours and rules are rewritten for a house on the pass.
 **All business details are fictional** — address, phone, e-mail and prices are placeholders.
 
 ## House rules for the type

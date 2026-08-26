@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 48" role="img" aria-label="NAMI — Bathhouse and Sea Garden">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 48" role="img" aria-label="NAMI — Bathhouse and Mountain Garden">
   <g fill="none" stroke="#C7B49C" stroke-width=".9">
     <path d="M24 5c9 6.4 13 12.7 13 19s-4 12.6-13 19C15 36.6 11 30.3 11 24S15 11.4 24 5Z"/>
     <path d="M13.6 26.6c2.6-2.6 5.2-2.6 7.8 0s5.2 2.6 7.8 0 5.2-2.6 5.2-2.6" stroke-linecap="round"/>
   </g>
   <circle cx="24" cy="17.6" r="1.6" fill="#E0A469"/>
   <text x="58" y="27" fill="#F2ECE4" font-family="Cormorant Garamond, Times, serif" font-size="22" letter-spacing="9">NAMI</text>
-  <text x="59" y="39" fill="#8B7962" font-family="Inter, Helvetica, Arial, sans-serif" font-size="6" letter-spacing="2.6">BATHHOUSE &amp; SEA GARDEN · BATUMI</text>
+  <text x="59" y="39" fill="#8B7962" font-family="Inter, Helvetica, Arial, sans-serif" font-size="5.4" letter-spacing="2.2">BATHHOUSE &amp; MOUNTAIN GARDEN · GODERDZI</text>
 </svg>

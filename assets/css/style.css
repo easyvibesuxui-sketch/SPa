@@ -281,8 +281,8 @@ ul{list-style:none}
 .hero__title .line{display:block;overflow:hidden}
 .hero__title .line--i{text-indent:.14em}
 .hero__title .line--ii{text-indent:-.1em}
-.hero__block{position:absolute;right:var(--pad);bottom:clamp(120px,20vh,220px);max-width:280px;text-align:right}
-.hero__block-t{font-family:var(--f-display);font-size:clamp(1rem,1.6vw,1.5rem);letter-spacing:.2em;line-height:1.3;color:var(--cream)}
+.hero__block{position:absolute;right:var(--pad);bottom:clamp(120px,20vh,220px);max-width:min(380px,42vw);text-align:right}
+.hero__block-t{font-family:var(--f-display);font-size:clamp(.95rem,1.45vw,1.35rem);letter-spacing:.17em;line-height:1.35;color:var(--cream);white-space:nowrap}
 .hero__block-s{font-size:11.5px;line-height:1.9;color:rgba(242,236,228,.5);margin-top:14px}
 .hero__bottom{position:absolute;left:var(--pad);right:var(--pad);bottom:clamp(28px,5vh,52px);display:flex;justify-content:space-between;align-items:flex-end}
 .scrollcue{display:block;padding:6px 14px 6px 0}
