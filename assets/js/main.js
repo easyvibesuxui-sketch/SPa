@@ -64,7 +64,7 @@
   function measure() {
     vh = window.innerHeight; vw = window.innerWidth;
     maxScroll = Math.max(0, document.documentElement.scrollHeight - vh);
-    cacheParallax(); cacheHScroll(); cacheWords();
+    cacheParallax(); cacheHScroll(); cacheWords(); cacheRoute(); rFit();
   }
 
   window.addEventListener('wheel', function (e) {
@@ -284,8 +284,14 @@
   window.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
 
   /* ── 12b. background video ────────────────────────────────
-     Drop a file at the path below and it takes over the frame;
-     with no file the photograph simply stays. ---------------- */
+     Name a file here and it takes over that frame, fading in over
+     the photograph once the first frame has decoded. Left empty,
+     the photograph simply stays. ----------------------------- */
+  var VIDEOS = {
+    hero: '',   // e.g. 'assets/video/hero.mp4'
+    dark: ''    // e.g. 'assets/video/dark.mp4'
+  };
+
   function mountVideo(host, src) {
     if (!host || reduce) return;
     var v = document.createElement('video');
@@ -304,16 +310,84 @@
     host.insertBefore(v, host.firstChild);
   }
 
-  mountVideo(document.querySelector('.hero__media'), 'assets/video/hero.mp4');
+  if (VIDEOS.hero) mountVideo(document.querySelector('.hero__media'), VIDEOS.hero);
 
-  var darkHost = document.querySelector('.dark__media');
+  var darkHost = VIDEOS.dark ? document.querySelector('.dark__media') : null;
   if (darkHost && 'IntersectionObserver' in window) {
     var ioV = new IntersectionObserver(function (en) {
       if (!en[0].isIntersecting) return;
       ioV.disconnect();
-      mountVideo(darkHost, 'assets/video/dark.mp4');
+      mountVideo(darkHost, VIDEOS.dark);
     }, { rootMargin: '80% 0px' });
     ioV.observe(darkHost);
+  }
+
+  /* ── 12c. the road up ─────────────────────────────────────
+     The clip is chopped into stills and the scroll position picks
+     the frame — nothing plays on its own, in either direction. --- */
+  var rCanvas = document.getElementById('routeCanvas');
+  var rSec = rCanvas ? rCanvas.closest('.route') : null;
+  var rKm = document.getElementById('routeKm');
+  var rLegs = rSec ? Array.prototype.slice.call(rSec.querySelectorAll('.leg')) : [];
+  var R = { count: 64, km: 95, imgs: [], step: 1, ctx: null, cur: 0, shown: -1, top: 0, len: 1, w: 0, h: 0 };
+
+  function rSrc(i) { return 'assets/img/route/r-' + (i < 10 ? '00' : '0') + i + '.webp'; }
+
+  function cacheRoute() { if (rSec) { R.top = docTop(rSec); R.len = Math.max(1, rSec.offsetHeight - vh); } }
+
+  function rFit() {
+    if (!R.ctx) return;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    R.w = rCanvas.clientWidth; R.h = rCanvas.clientHeight;
+    if (!R.w || !R.h) return;
+    rCanvas.width = Math.round(R.w * dpr); rCanvas.height = Math.round(R.h * dpr);
+    R.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    R.shown = -1;
+    rPaint(Math.round(R.cur));
+  }
+
+  function rPaint(i) {
+    if (!R.ctx || !R.w) return;
+    var img = null, j;
+    for (j = i; j >= 0; j--) { if (R.imgs[j] && R.imgs[j].ok) { img = R.imgs[j]; break; } }
+    if (!img) { for (j = i; j < R.count; j++) { if (R.imgs[j] && R.imgs[j].ok) { img = R.imgs[j]; break; } } }
+    if (!img || j === R.shown) return;
+    R.shown = j;
+    var s = Math.max(R.w / img.naturalWidth, R.h / img.naturalHeight);
+    var dw = img.naturalWidth * s, dh = img.naturalHeight * s;
+    R.ctx.drawImage(img, (R.w - dw) / 2, (R.h - dh) / 2, dw, dh);
+  }
+
+  function rLoad(only) {
+    var list = only !== undefined ? [only] : [];
+    if (!list.length) for (var k = 0; k < R.count; k += R.step) list.push(k);
+    list.forEach(function (i) {
+      if (R.imgs[i]) return;
+      var im = new Image();
+      im.decoding = 'async';
+      im.onload = function () { im.ok = true; if (R.shown < 0 || Math.abs(i - R.cur) <= R.step) rPaint(Math.round(R.cur)); };
+      im.src = rSrc(i);
+      R.imgs[i] = im;
+    });
+  }
+
+  if (rCanvas && rSec) {
+    R.ctx = rCanvas.getContext('2d', { alpha: false });
+    R.step = window.innerWidth < 760 ? 2 : 1;
+    if (reduce) {
+      R.cur = R.count - 1;
+      rLoad(R.count - 1);
+      rLegs.forEach(function (l) { l.classList.add('is-on'); });
+      if (rKm) rKm.textContent = R.km;
+    } else if ('IntersectionObserver' in window) {
+      var ioR = new IntersectionObserver(function (en) {
+        if (!en[0].isIntersecting) return;
+        ioR.disconnect(); rLoad();
+      }, { rootMargin: '150% 0px' });
+      ioR.observe(rSec);
+    } else {
+      rLoad();
+    }
   }
 
   /* ── 13. loader ───────────────────────────────────────── */
@@ -403,6 +477,17 @@
       for (var k = 0; k < n; k++) {
         var o = clamp(lit - k, 0, 1);
         b.words[k].style.opacity = (0.14 + 0.86 * o).toFixed(3);
+      }
+    }
+
+    /* the road up */
+    if (rSec && !reduce && y + vh > R.top && y < R.top + R.len + vh) {
+      var rp = clamp((y - R.top) / R.len, 0, 1);
+      R.cur = lerp(R.cur, rp * (R.count - 1), 0.2);
+      rPaint(Math.round(R.cur / R.step) * R.step);
+      if (rKm) rKm.textContent = Math.round(rp * R.km);
+      for (var lg = 0; lg < rLegs.length; lg++) {
+        rLegs[lg].classList.toggle('is-on', rp >= parseFloat(rLegs[lg].getAttribute('data-at')));
       }
     }
 

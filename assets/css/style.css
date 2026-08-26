@@ -304,8 +304,7 @@ ul{list-style:none}
 
 /* ── section frame ────────────────────────────────────────── */
 section{position:relative}
-.intro,.house,.touch,.table,.tickets,.find{padding:clamp(90px,14vh,190px) var(--pad)}
-
+.intro,.house,.touch,.table,.tickets,
 /* 01 intro */
 .intro__inner{display:grid;grid-template-columns:1.15fr .85fr;gap:var(--gut);align-items:center;max-width:1500px;margin:0 auto}
 .intro__left{display:grid;gap:clamp(22px,3vw,38px);justify-items:start}
@@ -433,16 +432,43 @@ section{position:relative}
 .notes{display:grid;gap:20px;justify-items:start}
 .notes p:not(.eyebrow){font-size:clamp(.94rem,1.05vw,1.02rem);line-height:1.9;color:rgba(242,236,228,.62);max-width:52ch}
 
-/* 09 find */
-.find__inner{max-width:1500px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:var(--gut);align-items:center}
-.find__copy{display:grid;gap:28px;justify-items:start}
-.find__addr{font-style:normal;font-size:14px;line-height:2.1;color:rgba(242,236,228,.68)}
-.find__addr a:hover{color:var(--amber)}
-.find__list{display:grid;gap:16px;width:100%}
-.find__list li{display:grid;grid-template-columns:110px 1fr;gap:18px;border-top:1px solid var(--line);padding-top:14px}
-.find__list b{font-family:var(--f-display);font-weight:400;font-size:1.05rem;letter-spacing:0;color:var(--sand)}
-.find__list span{font-size:13px;color:rgba(242,236,228,.55)}
-.media--map{aspect-ratio:1/1}
+
+/* ── the road up: a scroll-drawn map ──────────────────────── */
+.route{position:relative;height:340vh;background:var(--ink)}
+.route__sticky{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;align-items:center;justify-content:flex-end}
+.route__canvas{position:absolute;inset:0;width:100%;height:100%;display:block;background:#070706;
+  filter:sepia(.24) saturate(.9) brightness(.92) contrast(1.06)}
+.route__wash{position:absolute;inset:0;background:
+  linear-gradient(270deg,rgba(8,6,5,.96) 0%,rgba(8,6,5,.84) 32%,rgba(8,6,5,.12) 64%,rgba(8,6,5,.46) 100%),
+  radial-gradient(76% 60% at 80% 52%,rgba(224,164,105,.10),transparent 72%)}
+.route__inner{position:relative;padding:0 var(--pad);width:min(560px,50%);display:grid;gap:clamp(18px,2.4vw,30px)}
+.route__inner .h-display{font-size:clamp(2.2rem,4.4vw,4.2rem)}
+.route__addr{font-style:normal;font-size:13.5px;line-height:2;color:rgba(242,236,228,.6)}
+.route__addr a:hover{color:var(--amber)}
+
+.legs{display:grid;border-top:1px solid var(--line);counter-reset:none}
+.leg{display:grid;gap:4px;padding:15px 0;border-bottom:1px solid var(--line);
+  opacity:.28;transform:translateY(8px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.leg.is-on{opacity:1;transform:none}
+.leg b{font-family:var(--f-display);font-weight:400;font-size:clamp(1.1rem,1.5vw,1.35rem);color:var(--cream)}
+.leg:last-child.is-on b{color:var(--amber-l)}
+.leg span{font-size:12.5px;color:var(--sand-d)}
+
+.route__km{position:absolute;left:var(--pad);bottom:clamp(26px,5vh,52px);text-align:left;
+  font-family:var(--f-display);font-size:1rem;color:var(--sand-d);line-height:1.2}
+.route__km b{display:block;font-weight:300;font-size:clamp(2.4rem,5vw,4.2rem);color:var(--amber);
+  font-variant-numeric:tabular-nums;line-height:1}
+
+@media (max-width:860px){
+  .route{height:300vh}
+  .route__inner{width:100%;gap:16px}
+  .route__wash{background:
+    linear-gradient(180deg,rgba(8,6,5,.28) 0%,rgba(8,6,5,.52) 14%,rgba(8,6,5,.9) 38%,rgba(8,6,5,.97) 100%)}
+  .route__sticky{align-items:flex-end;justify-content:flex-start;padding-bottom:clamp(56px,9vh,90px)}
+  .route__inner .h-display{font-size:clamp(2rem,8vw,2.6rem)}
+  .leg{padding:12px 0}
+  .route__km{display:none}   /* the legs carry the distance on a phone */
+}
 
 /* ── footer ───────────────────────────────────────────────── */
 .footer{position:relative;padding:clamp(70px,10vh,120px) var(--pad) 0;border-top:1px solid var(--line);overflow:hidden}
@@ -474,7 +500,7 @@ section{position:relative}
   .menu__side{display:none}
 }
 @media (max-width:860px){
-  .intro__inner,.table__inner,.find__inner,.tickets__foot{grid-template-columns:1fr;gap:44px}
+  .intro__inner,.table__inner,.tickets__foot{grid-template-columns:1fr;gap:44px}
   .intro__right{max-width:100%;margin:0}
   .house__pair{grid-template-columns:1fr}
   .media--b{max-width:100%}
@@ -495,8 +521,7 @@ section{position:relative}
   .btn em{display:none}
   .hs{--panels:6;height:calc(var(--panels) * 52vh + 100vh)}
   .rcard{flex-basis:min(76vw,320px)}
-  .find__list li{grid-template-columns:1fr;gap:6px}
-}
+  }
 @media (max-width:560px){
   .stats,.temps,.tickets__grid{grid-template-columns:1fr}
   .footer__bottom{flex-direction:column;gap:10px}

@@ -29,7 +29,7 @@ Single page, no framework, no build step. Open `index.html` — that is the whol
 | 07 | Table — bathrobe dining | Restaurant / gastronomy |
 | 08 | Hours & Tickets — 2h / 4h / day / after dark | Day tickets & opening hours |
 | — | Voucher marquee | Gift vouchers |
-| 09 | Find Us — address, arrival | Location & contact |
+| 09 | The road up — the drive drawn on a map as you scroll | Location & getting here |
 
 Prices are in Georgian lari (₾), hours and rules are rewritten for a Batumi house.
 **All business details are fictional** — address, phone, e-mail and prices are placeholders.
@@ -87,6 +87,23 @@ Four scenic frames — Sunset Deck, the third water frame, the table and Find Us
 **Unsplash** and carry a `data-fallback` second URL; if both fail the frame degrades to a warm
 gradient rather than a broken image. The menu overlay's set lives in `MENU_IMGS` in
 `assets/js/main.js`.
+
+## The road up
+
+The location section runs on the supplied route clip (8 s, 1280×720), chopped into
+**64 stills** at 8 fps and scaled to 1100 px wide — `assets/img/route/r-000.webp` …
+`r-063.webp`, WebP quality 62, 1.3 MB for the whole set.
+
+Nothing plays. A canvas fills the sticky frame and the scroll position picks the
+frame: the section is 340 vh tall, and progress through it maps to frame index, so
+the road draws forward when the visitor scrolls down and unwinds when they scroll
+back. The distance readout counts to 95 km on the same progress, and the three legs
+(Batumi · Khulo · Goderdzi) light as the line reaches them. Frames load only when the
+section is within 1.5 viewports, at half resolution in frame count below 760 px wide.
+Under `prefers-reduced-motion` a single frame — the finished route — is drawn once.
+
+To re-chop a new clip: extract with `fps=8,scale=1100:-2`, save as WebP q62 into
+`assets/img/route/`, and set `R.count` in `assets/js/main.js` to the number of files.
 
 ## Video
 

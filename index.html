@@ -394,29 +394,32 @@
   </div>
 </div>
 
-<!-- ════════════ 09 FIND ════════════ -->
-<section class="find" id="find">
-  <div class="find__inner">
-    <div class="find__copy">
-      <h2 class="h-display reveal-up">Six minutes<br>from the <em>boulevard.</em></h2>
-      <address class="find__addr reveal">
-        12 Sherif Khimshiashvili St<br>
-        Batumi 6010, Adjara, Georgia<br><br>
-        <a href="tel:+995422000012" data-cursor="call">+995 422 00 00 12</a><br>
+<!-- ════════════ THE ROAD UP ════════════ -->
+<section class="route" id="find">
+  <div class="route__sticky">
+    <canvas class="route__canvas" id="routeCanvas" aria-hidden="true"></canvas>
+    <div class="route__wash" aria-hidden="true"></div>
+
+    <div class="route__inner">
+      <h2 class="h-display reveal-up">Ninety-five kilometres<br>above the sea</h2>
+      <p class="p reveal">NAMI stands on the Goderdzi Pass, where the Adjarian road stops climbing.
+        Leave Batumi after breakfast, follow the Ajaristsqali up through Khulo, and arrive in time
+        for the first infusion of the afternoon. We send a car if you would rather not drive it.</p>
+
+      <ol class="legs">
+        <li class="leg" data-at="0.04"><b>Batumi, the coast</b><span>Sea level — the drive begins at the boulevard</span></li>
+        <li class="leg" data-at="0.52"><b>Khulo</b><span>Half way — the cable car, and coffee if you want it</span></li>
+        <li class="leg" data-at="0.88"><b>Goderdzi Pass — the house</b><span>2,025 m — two and a half hours from the sea</span></li>
+      </ol>
+
+      <address class="route__addr reveal">
+        Goderdzi Pass, Khulo Municipality, Adjara<br>
+        <a href="tel:+995422000012" data-cursor="call">+995 422 00 00 12</a> ·
         <a href="mailto:hello@nami.ge" data-cursor="mail">hello@nami.ge</a>
       </address>
-      <ul class="find__list">
-        <li class="reveal"><b>By foot</b><span>6 min from Batumi Boulevard, along the old port line</span></li>
-        <li class="reveal"><b>By car</b><span>12 min from BUS airport · valet from 18:00</span></li>
-        <li class="reveal"><b>By sea</b><span>Mooring for eight, ask the desk</span></li>
-      </ul>
     </div>
-    <figure class="media media--map cover" data-parallax="0.08">
-      <img src="https://images.unsplash.com/photo-1439066615861-d1af74d74000?auto=format&fit=crop&w=1200&q=75"
-           data-fallback="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=75"
-           alt="The Black Sea at dusk near Batumi" loading="lazy" decoding="async">
-      <figcaption class="caption">41.6438° N, 41.6398° E</figcaption>
-    </figure>
+
+    <p class="route__km" aria-hidden="true"><b id="routeKm">0</b> km from Batumi</p>
   </div>
 </section>
 
