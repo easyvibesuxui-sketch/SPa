@@ -178,10 +178,8 @@ ul{list-style:none}
   font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--cream);
   transition:background .5s var(--ease),color .5s var(--ease),border-color .5s var(--ease);
 }
-.btn em{font-family:var(--f-ka);font-style:normal;font-size:9px;color:var(--sand-d);letter-spacing:.06em}
 .btn i{width:14px;height:1px;background:currentColor;transition:width .5s var(--ease)}
 .btn:hover{background:var(--cream);color:var(--ink);border-color:var(--cream)}
-.btn:hover em{color:var(--clay)}
 .btn:hover i{width:24px}
 .btn--amber{border-color:rgba(224,164,105,.5);color:var(--amber);margin-top:44px}
 .btn--amber:hover{background:var(--amber);color:var(--ink);border-color:var(--amber)}
@@ -518,8 +516,7 @@ section{position:relative}
   .tpreview{display:none}
   .header{padding-top:16px}
   .logo__sub{display:none}
-  .btn em{display:none}
-  .hs{--panels:6;height:calc(var(--panels) * 52vh + 100vh)}
+    .hs{--panels:6;height:calc(var(--panels) * 52vh + 100vh)}
   .rcard{flex-basis:min(76vw,320px)}
   }
 @media (max-width:560px){
