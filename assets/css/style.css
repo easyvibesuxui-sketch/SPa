@@ -328,7 +328,8 @@ section{position:relative}
 .link:hover i{width:46px}
 
 /* 03 rituals — horizontal */
-.hs{--panels:6;height:calc(var(--panels) * 60vh + 100vh);background:var(--ink-2)}
+.hs{--panels:6;height:calc(var(--panels) * 60vh + 100vh);
+  background:linear-gradient(180deg,var(--ink) 0,var(--ink-2) 240px,var(--ink-2) calc(100% - 240px),var(--ink) 100%)}
 .hs__sticky{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:clamp(30px,4.6vh,62px);padding-top:clamp(84px,11vh,130px)}
 .hs__head{padding:0 var(--pad);display:grid;gap:20px;position:relative}
 @keyframes slide{0%{transform:translateX(-14px)}100%{transform:translateX(42px)}}
@@ -412,7 +413,7 @@ section{position:relative}
 .table__facts span{font-size:12.5px;letter-spacing:.01em;color:var(--sand-d)}
 
 /* 08 tickets */
-.tickets{background:var(--ink-2)}
+.tickets{background:linear-gradient(180deg,var(--ink) 0,var(--ink-2) 220px,var(--ink-2) calc(100% - 220px),var(--ink) 100%)}
 .tickets__head{max-width:1500px;margin:0 auto clamp(66px,8vw,120px);display:grid;gap:32px}
 .tickets__grid{max-width:1500px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(20px,2.4vw,42px)}
 .tick{border:1px solid var(--line);padding:clamp(32px,3vw,52px);display:grid;gap:22px;align-content:start;transition:background .6s var(--ease),border-color .6s var(--ease),transform .7s var(--ease)}
@@ -436,9 +437,14 @@ section{position:relative}
 /* ── the road up: a scroll-drawn map ──────────────────────── */
 .route{position:relative;height:340vh;background:var(--ink)}
 .route__sticky{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;align-items:center;justify-content:flex-end}
-.route__canvas{position:absolute;inset:0;width:100%;height:100%;display:block;background:#070706;
-  filter:sepia(.24) saturate(.9) brightness(.92) contrast(1.06)}
+.route__canvas{position:absolute;inset:0;width:100%;height:100%;display:block;
+  filter:sepia(.24) saturate(.9) brightness(.92) contrast(1.06);
+  opacity:var(--fade,1);
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 17%,#000 81%,transparent 100%);
+  mask-image:linear-gradient(180deg,transparent 0,#000 17%,#000 81%,transparent 100%)}
 .route__wash{position:absolute;inset:0;background:
+  linear-gradient(180deg,var(--ink) 0%,var(--ink) 3%,rgba(11,9,8,.7) 11%,rgba(11,9,8,0) 27%),
+  linear-gradient(0deg,var(--ink) 0%,var(--ink) 4%,rgba(11,9,8,.74) 13%,rgba(11,9,8,0) 31%),
   linear-gradient(270deg,rgba(8,6,5,.96) 0%,rgba(8,6,5,.84) 32%,rgba(8,6,5,.12) 64%,rgba(8,6,5,.46) 100%),
   radial-gradient(76% 60% at 80% 52%,rgba(224,164,105,.10),transparent 72%)}
 .route__inner{position:relative;padding:0 var(--pad);width:min(580px,52%);display:grid;gap:clamp(26px,3.2vw,44px)}
@@ -463,7 +469,7 @@ section{position:relative}
   .route{height:300vh}
   .route__inner{width:100%;gap:16px}
   .route__wash{background:
-    linear-gradient(180deg,rgba(8,6,5,.28) 0%,rgba(8,6,5,.52) 14%,rgba(8,6,5,.9) 38%,rgba(8,6,5,.97) 100%)}
+    linear-gradient(180deg,var(--ink) 0%,rgba(8,6,5,.34) 10%,rgba(8,6,5,.56) 20%,rgba(8,6,5,.9) 42%,rgba(8,6,5,.98) 100%)}
   .route__sticky{align-items:flex-end;justify-content:flex-start;padding-bottom:clamp(56px,9vh,90px)}
   .route__inner .h-display{font-size:clamp(2rem,8vw,2.6rem)}
   .leg{padding:12px 0}
@@ -471,7 +477,7 @@ section{position:relative}
 }
 
 /* ── footer ───────────────────────────────────────────────── */
-.footer{position:relative;padding:clamp(100px,13vh,180px) var(--pad) 0;border-top:1px solid var(--line);overflow:hidden}
+.footer{position:relative;padding:clamp(100px,13vh,180px) var(--pad) 0;overflow:hidden}
 .footer__top{max-width:1500px;margin:0 auto;display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:var(--gut)}
 .footer__line{font-family:var(--f-display);font-size:1.2rem;line-height:1.5;color:var(--sand);margin-top:20px}
 .footer__nav{display:flex;flex-wrap:wrap;gap:10px 26px;align-content:start;padding-top:6px}

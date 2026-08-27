@@ -482,6 +482,11 @@
 
     /* the road up */
     if (rSec && !reduce && y + vh > R.top && y < R.top + R.len + vh) {
+      /* dissolve the map in on approach and out again past the end */
+      var fadeIn = clamp((y - (R.top - vh)) / (vh * 0.8), 0, 1);
+      var fadeOut = clamp(((R.top + R.len + vh) - y) / (vh * 0.8), 0, 1);
+      rCanvas.style.opacity = Math.min(fadeIn, fadeOut).toFixed(3);
+
       var rp = clamp((y - R.top) / R.len, 0, 1);
       R.cur = lerp(R.cur, rp * (R.count - 1), 0.2);
       rPaint(Math.round(R.cur / R.step) * R.step);
