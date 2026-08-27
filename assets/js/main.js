@@ -482,10 +482,13 @@
 
     /* the road up */
     if (rSec && !reduce && y + vh > R.top && y < R.top + R.len + vh) {
-      /* dissolve the map in on approach and out again past the end */
-      var fadeIn = clamp((y - (R.top - vh)) / (vh * 0.8), 0, 1);
-      var fadeOut = clamp(((R.top + R.len + vh) - y) / (vh * 0.8), 0, 1);
-      rCanvas.style.opacity = Math.min(fadeIn, fadeOut).toFixed(3);
+      /* the map melts in on approach and back out past the end: it is still
+         soft and half-there as it pins, and only settles a little after */
+      var fadeIn = clamp((y - (R.top - vh * 0.9)) / (vh * 1.25), 0, 1);
+      var fadeOut = clamp(((R.top + R.len + vh * 0.9) - y) / (vh * 1.25), 0, 1);
+      var fade = Math.min(fadeIn, fadeOut);
+      rCanvas.style.opacity = fade.toFixed(3);
+      rCanvas.style.setProperty('--soft', ((1 - fade) * (1 - fade) * 22).toFixed(1) + 'px');
 
       var rp = clamp((y - R.top) / R.len, 0, 1);
       R.cur = lerp(R.cur, rp * (R.count - 1), 0.2);
