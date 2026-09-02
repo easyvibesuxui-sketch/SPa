@@ -99,7 +99,7 @@ ul{list-style:none}
 .film{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .film__canvas{position:absolute;inset:0;width:100%;height:100%;display:block;
   opacity:var(--film,1);transform:scale(1.14);will-change:transform;transition:opacity 1.2s var(--ease-s)}
-.film__glass{position:absolute;inset:-8%;background:
+.film__glass{display:none;position:absolute;inset:-8%;background:
   radial-gradient(circle at 22% 34%,rgba(255,240,220,.045) 0 8px,transparent 9px),
   radial-gradient(circle at 68% 12%,rgba(255,240,220,.04) 0 5px,transparent 6px),
   radial-gradient(circle at 84% 62%,rgba(255,240,220,.05) 0 10px,transparent 11px),
@@ -112,8 +112,7 @@ ul{list-style:none}
   0%{transform:translate3d(0,0,0)}
   50%{transform:translate3d(1.6%,-2.2%,0)}
   100%{transform:translate3d(0,0,0)}}
-.film__scrim{position:absolute;inset:0;background:
-  radial-gradient(112% 84% at 50% 48%,rgba(11,9,8,0) 0%,rgba(11,9,8,0) 36%,rgba(11,9,8,.26) 74%,rgba(11,9,8,.66) 100%)}
+.film__scrim{display:none}
 .header,main,.footer{position:relative;z-index:1}
 
 /* the room is bright behind the words, so the words carry their own ground */
@@ -134,7 +133,7 @@ ul{list-style:none}
 }
 .vignette{
   position:fixed;inset:0;z-index:89;pointer-events:none;
-  background:radial-gradient(118% 90% at 50% 48%,transparent 58%,rgba(5,4,3,.34) 100%);
+  background:none;
 }
 
 .progress{position:fixed;top:0;left:0;right:0;height:1px;z-index:95;background:rgba(199,180,156,.10)}
@@ -285,7 +284,7 @@ ul{list-style:none}
 .hero__media{position:absolute;inset:0}
 .hero__media img{width:100%;height:132%;position:absolute;top:-16%;left:0;object-fit:cover;will-change:transform;filter:saturate(.8) contrast(1.05) brightness(.74)}
 .hero__wash{position:absolute;inset:0;background:
-  linear-gradient(180deg,rgba(11,9,8,.34) 0%,rgba(11,9,8,0) 30%,rgba(11,9,8,.1) 66%,rgba(11,9,8,.66) 100%)}
+  none}
 .hero__glow{
   position:absolute;left:50%;top:38%;width:min(1100px,120vw);height:min(700px,70vh);transform:translate(-50%,-50%);
   background:radial-gradient(ellipse at center,rgba(224,164,105,.20),rgba(224,164,105,.06) 42%,transparent 70%);
@@ -322,7 +321,7 @@ ul{list-style:none}
 .hero__ka em{font-style:italic;font-family:var(--f-display);color:var(--sand-d)}
 
 /* ── marquee ──────────────────────────────────────────────── */
-.marquee{overflow:hidden;padding:36px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(16,11,9,.42)}
+.marquee{overflow:hidden;padding:36px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:none}
 .marquee__track{display:flex;align-items:center;gap:28px;white-space:nowrap;will-change:transform;width:max-content}
 .marquee span{font-family:var(--f-display);font-size:clamp(1.1rem,2vw,1.8rem);letter-spacing:.06em;color:var(--sand)}
 .marquee span:nth-child(4n+1){font-family:var(--f-ka);color:var(--clay-2)}
@@ -334,7 +333,7 @@ ul{list-style:none}
 /* ── section frame ────────────────────────────────────────── */
 section{position:relative}
 .intro,.house,.touch,.table,.tickets{padding:clamp(130px,20vh,280px) var(--pad)}
-.intro,.house,.touch,.table,.water{background:linear-gradient(180deg,transparent 0,rgba(9,7,6,.12) 9%,rgba(9,7,6,.12) 91%,transparent 100%)}
+.intro,.house,.touch,.table,.water{background:none}
 
 /* 01 intro */
 .intro__inner{display:grid;grid-template-columns:1.15fr .85fr;gap:var(--gut);align-items:center;max-width:1500px;margin:0 auto}
@@ -360,7 +359,7 @@ section{position:relative}
 
 /* 03 rituals — horizontal */
 .hs{--panels:6;height:calc(var(--panels) * 60vh + 100vh);
-  background:linear-gradient(180deg,transparent 0,rgba(16,11,9,.3) 380px,rgba(16,11,9,.3) calc(100% - 380px),transparent 100%)}
+  background:none}
 .hs__sticky{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:clamp(30px,4.6vh,62px);padding-top:clamp(84px,11vh,130px)}
 .hs__head{padding:0 var(--pad);display:grid;gap:20px;position:relative}
 @keyframes slide{0%{transform:translateX(-14px)}100%{transform:translateX(42px)}}
@@ -445,7 +444,7 @@ section{position:relative}
 .table__facts span{font-size:12.5px;letter-spacing:.01em;color:rgba(242,236,228,.84)}
 
 /* 08 tickets */
-.tickets{background:linear-gradient(180deg,transparent 0,rgba(16,11,9,.3) 340px,rgba(16,11,9,.3) calc(100% - 340px),transparent 100%)}
+.tickets{background:none}
 .tickets__head{max-width:1500px;margin:0 auto clamp(66px,8vw,120px);display:grid;gap:32px}
 .tickets__grid{max-width:1500px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(20px,2.4vw,42px)}
 .tick{border:1px solid var(--line);padding:clamp(32px,3vw,52px);display:grid;gap:22px;align-content:start;transition:background .6s var(--ease),border-color .6s var(--ease),transform .7s var(--ease)}
