@@ -88,7 +88,7 @@ ul{list-style:none}
 .lede--sm{font-size:clamp(1.15rem,1.9vw,1.6rem);max-width:34ch}
 .p{font-size:clamp(.94rem,1.05vw,1.02rem);line-height:1.85;color:rgba(242,236,228,.82);max-width:46ch}
 .p--narrow{max-width:38ch}
-.caption{font-family:var(--f-display);font-style:italic;font-size:.95rem;color:var(--sand-d);margin-top:14px}
+.caption{font-family:var(--f-display);font-style:italic;font-size:.95rem;color:rgba(242,236,228,.84);margin-top:14px}
 .sig{font-family:var(--f-display);font-style:italic;font-size:1.05rem;color:var(--sand-d)}
 .sig em{color:var(--sand);font-style:italic}
 
@@ -98,7 +98,7 @@ ul{list-style:none}
    on its own. ------------------------------------------------- */
 .film{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .film__canvas{position:absolute;inset:0;width:100%;height:100%;display:block;
-  opacity:var(--film,1);transition:opacity 1.2s var(--ease-s)}
+  opacity:var(--film,1);transform:scale(1.14);will-change:transform;transition:opacity 1.2s var(--ease-s)}
 .film__glass{position:absolute;inset:-8%;background:
   radial-gradient(circle at 22% 34%,rgba(255,240,220,.045) 0 8px,transparent 9px),
   radial-gradient(circle at 68% 12%,rgba(255,240,220,.04) 0 5px,transparent 6px),
@@ -372,7 +372,7 @@ section{position:relative}
 .rcard__body{display:grid;gap:14px}
 .rcard h3{font-family:var(--f-display);font-weight:300;font-size:clamp(1.4rem,2vw,1.95rem);line-height:1.1}
 .rcard p{font-size:13px;line-height:1.8;color:rgba(242,236,228,.75)}
-.rcard__meta{font-size:11.5px;letter-spacing:.02em;color:var(--sand-d);padding-top:14px;border-top:1px solid var(--line)}
+.rcard__meta{font-size:11.5px;letter-spacing:.02em;color:rgba(242,236,228,.86);padding-top:14px;border-top:1px solid var(--line)}
 
 /* 04 water */
 .water{padding:clamp(120px,20vh,260px) var(--pad);overflow:hidden;min-height:120vh;display:flex;flex-direction:column;justify-content:center}
@@ -392,7 +392,7 @@ section{position:relative}
 .temps{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(28px,3.6vw,60px);width:100%;border-top:1px solid var(--line);padding-top:46px}
 .temps li{display:grid;gap:8px;text-align:center}
 .temps b{font-family:var(--f-price);font-weight:300;font-size:clamp(2rem,3.6vw,3.4rem);color:var(--amber);line-height:1}
-.temps span{font-size:12.5px;letter-spacing:.01em;color:var(--sand-d);line-height:1.7}
+.temps span{font-size:12.5px;letter-spacing:.01em;color:rgba(242,236,228,.86);line-height:1.7}
 
 /* 05 touch */
 .touch__head{max-width:1500px;margin:0 auto clamp(66px,8vw,120px);display:grid;gap:32px}
@@ -407,7 +407,7 @@ section{position:relative}
 .trow:hover{padding-left:26px}
 .trow h3{font-family:var(--f-display);font-weight:300;font-size:clamp(1.5rem,3.2vw,2.9rem);line-height:1.05;transition:color .5s}
 .trow:hover h3{color:var(--sand)}
-.trow__d{font-size:12.5px;letter-spacing:.01em;color:var(--sand-d);text-align:right}
+.trow__d{font-size:12.5px;letter-spacing:.01em;color:rgba(242,236,228,.84);text-align:right}
 .trow__p{font-family:var(--f-price);font-size:clamp(1.1rem,1.6vw,1.5rem);color:var(--amber);text-align:right}
 .tpreview{
   position:fixed;top:0;left:0;width:clamp(200px,20vw,300px);aspect-ratio:4/5;z-index:80;pointer-events:none;
@@ -433,7 +433,7 @@ section{position:relative}
 .dcard{border-top:1px solid rgba(224,164,105,.28);padding-top:30px;display:grid;gap:16px}
 .dcard h3{font-family:var(--f-display);font-weight:300;font-size:clamp(1.25rem,1.9vw,1.7rem);color:var(--amber-l)}
 .dcard p{font-size:13px;line-height:1.85;color:rgba(242,236,228,.78)}
-.dcard span{font-size:12px;letter-spacing:.01em;color:var(--sand-d)}
+.dcard span{font-size:12px;letter-spacing:.01em;color:rgba(242,236,228,.86)}
 
 /* 07 table */
 .table__inner{max-width:1500px;margin:0 auto;display:grid;grid-template-columns:.9fr 1.1fr;gap:var(--gut);align-items:center}
@@ -442,7 +442,7 @@ section{position:relative}
 .table__facts{display:grid;gap:26px;width:100%;margin-top:14px}
 .table__facts li{display:grid;gap:7px;border-top:1px solid var(--line);padding-top:20px}
 .table__facts b{font-family:var(--f-display);font-weight:400;font-size:1.15rem;color:var(--sand)}
-.table__facts span{font-size:12.5px;letter-spacing:.01em;color:var(--sand-d)}
+.table__facts span{font-size:12.5px;letter-spacing:.01em;color:rgba(242,236,228,.84)}
 
 /* 08 tickets */
 .tickets{background:linear-gradient(180deg,transparent 0,rgba(16,11,9,.3) 340px,rgba(16,11,9,.3) calc(100% - 340px),transparent 100%)}
@@ -453,7 +453,7 @@ section{position:relative}
 .tick header{display:block}
 .tick h3{font-family:var(--f-display);font-weight:300;font-size:clamp(1.3rem,2vw,1.8rem)}
 .tick__p{font-family:var(--f-price);font-size:clamp(2rem,3.4vw,3rem);line-height:1;color:var(--cream)}
-.tick__p em{font-style:italic;font-family:var(--f-display);font-size:1rem;letter-spacing:0;color:var(--sand-d);display:block;margin-top:10px}
+.tick__p em{font-style:italic;font-family:var(--f-display);font-size:1rem;letter-spacing:0;color:rgba(242,236,228,.84);display:block;margin-top:10px}
 .tick__d{font-size:13px;line-height:1.8;color:rgba(242,236,228,.74)}
 .tick--hl{background:rgba(224,164,105,.07);border-color:rgba(224,164,105,.32)}
 .tick--hl .tick__p{color:var(--amber)}
@@ -490,7 +490,7 @@ section{position:relative}
 .leg.is-on{opacity:1;transform:none}
 .leg b{font-family:var(--f-display);font-weight:400;font-size:clamp(1.1rem,1.5vw,1.35rem);color:var(--cream)}
 .leg:last-child.is-on b{color:var(--amber-l)}
-.leg span{font-size:12.5px;color:var(--sand-d)}
+.leg span{font-size:12.5px;color:rgba(242,236,228,.84)}
 
 .route__km{position:absolute;left:var(--pad);bottom:clamp(26px,5vh,52px);text-align:left;
   font-family:var(--f-display);font-size:1rem;color:var(--sand-d);line-height:1.2}
@@ -523,7 +523,7 @@ section{position:relative}
   -webkit-text-stroke:1px rgba(199,180,156,.22);margin:clamp(40px,7vw,90px) 0 -.14em;
   user-select:none;
 }
-.footer__bottom{max-width:1500px;margin:0 auto;display:flex;justify-content:space-between;gap:20px;padding:36px 0;border-top:1px solid var(--line);font-size:12px;letter-spacing:.01em;color:var(--sand-d)}
+.footer__bottom{max-width:1500px;margin:0 auto;display:flex;justify-content:space-between;gap:20px;padding:36px 0;border-top:1px solid var(--line);font-size:12px;letter-spacing:.01em;color:rgba(242,236,228,.78)}
 .footer__bottom a:hover{color:var(--amber)}
 
 /* ── responsive ───────────────────────────────────────────── */

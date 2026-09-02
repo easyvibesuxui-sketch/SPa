@@ -539,10 +539,14 @@
       }
     }
 
-    /* the room behind the glass — one frame per scroll position */
+    /* the room behind the glass — one frame per scroll position,
+       and a slow drift across the page so the footage reads as footage */
     if (fCanvas && !reduce && maxScroll > 0) {
-      F.cur = lerp(F.cur, (y / maxScroll) * (F.count - 1), 0.12);
+      var fp = y / maxScroll;
+      F.cur = lerp(F.cur, fp * (F.count - 1), 0.12);
       fPaint(Math.round(F.cur / F.step) * F.step);
+      fCanvas.style.transform = 'scale(' + (1.14 - fp * 0.12).toFixed(4) +
+        ') translate3d(' + (fp * 1.6 - 0.8).toFixed(2) + '%,' + (1.4 - fp * 2.8).toFixed(2) + '%,0)';
     }
 
     /* the road up */

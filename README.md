@@ -92,10 +92,15 @@ gradient rather than a broken image. The menu overlay's set lives in `MENU_IMGS`
 
 The whole page sits on one scroll-driven background: the supplied 25-second clip,
 chopped into **120 stills** at 4.8 fps and frosted in the pixels themselves —
-each frame is reduced to 64 px wide, blurred, enlarged again to 560 px and
-blurred a second time, then desaturated, darkened and warmed. What ships is a
-moving field of steam-coloured light with a soft silhouette in it; nothing in the
-source survives the reduction, and the whole set is 153 KB.
+each frame is reduced to 104 px wide, blurred, enlarged again to 560 px and
+blurred a second time, then warmed and lifted in contrast. The figure is backlit
+in every frame, so what survives the reduction is a dark silhouette against the
+steam: a body's shape, an arm, the light behind it, and nothing else. The set is
+484 KB.
+
+Do not sharpen it further. 104 px is where the footage reads as footage rather
+than a gradient while the source stays unrecoverable; past it the reduction
+stops doing its job.
 
 The frames live in `assets/img/steam/`. **The source video is deliberately not in
 the repository** — only the frosted stills, and they are not recoverable back to
@@ -105,6 +110,9 @@ obscuring is baked in.
 
 The hero has no image of its own: the room is what the visitor opens on, and the
 first frames of the film play as they leave it.
+
+The canvas also drifts as the page scrolls — a slow zoom out from 1.14 with a
+little pan — so the background reads as moving footage rather than a still wash.
 
 A fixed canvas draws one frame per scroll position across the entire document —
 nothing plays on its own — under a condensation layer (droplets and streaks that
