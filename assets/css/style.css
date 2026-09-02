@@ -101,22 +101,16 @@ ul{list-style:none}
   opacity:var(--film,1);transform:scale(1.16);
   will-change:transform;transition:opacity 1.2s var(--ease-s)}
 
-/* the pane itself: rain beading on cold glass, warm room behind it */
-.film__glass{position:absolute;inset:-6%;
-  background-image:url(../img/glass/drops.webp);
-  background-size:1100px 1100px;background-repeat:repeat;
-  opacity:.72;animation:drift 74s linear infinite}
-.film__glass::after{content:"";position:absolute;inset:-20%;
-  background:
-    radial-gradient(58% 44% at 24% 26%,rgba(255,238,218,.055),transparent 70%),
-    radial-gradient(52% 60% at 78% 62%,rgba(255,236,214,.045),transparent 72%),
-    radial-gradient(70% 50% at 44% 88%,rgba(255,240,222,.04),transparent 74%),
-    radial-gradient(120% 96% at 50% 40%,rgba(196,141,99,.10),rgba(52,32,22,.15));
-  mix-blend-mode:soft-light;animation:drift 112s linear infinite reverse}
-@keyframes drift{
-  0%{transform:translate3d(0,0,0)}
-  50%{transform:translate3d(1.6%,-2.2%,0)}
-  100%{transform:translate3d(0,0,0)}}
+/* the surface: the room is seen through water, and the water answers
+   the pointer. The canvas below is the source the shader samples, so it
+   is kept in the document and out of sight. See main.js, 12e. */
+.film__water{position:absolute;inset:0;width:100%;height:100%;display:block;
+  will-change:transform}
+.film__canvas.is-source{visibility:hidden}
+.waterlight{position:fixed;inset:0;z-index:88;pointer-events:none;display:block;
+  width:100%;height:100%;mix-blend-mode:soft-light}
+@media (prefers-reduced-motion:reduce){.waterlight,.film__water{display:none}}
+
 .film__scrim{display:none}
 .header,main,.footer{position:relative;z-index:1}
 

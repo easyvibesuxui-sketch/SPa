@@ -64,7 +64,7 @@
   function measure() {
     vh = window.innerHeight; vw = window.innerWidth;
     maxScroll = Math.max(0, document.documentElement.scrollHeight - vh);
-    cacheParallax(); cacheHScroll(); cacheWords(); cacheRoute(); rFit(); fFit();
+    cacheParallax(); cacheHScroll(); cacheWords(); cacheRoute(); rFit(); fFit(); wFit();
   }
 
   window.addEventListener('wheel', function (e) {
@@ -381,6 +381,209 @@
     }
   }
 
+  /* ── 12e. the surface ─────────────────────────────────────
+     The room is seen through water now, not through glass, and the
+     water answers the pointer.
+
+     One height field, described in the shader and never stored: a slow
+     ambient swell that never stops, plus a ring for every place the
+     pointer has been, spreading outward and dying. Two passes read it.
+     The lower one samples the film canvas and offsets the sample by the
+     slope of the surface — refraction, so the room bends. The upper one
+     draws only the light the slope throws back, over the whole page on a
+     soft-light blend, so the sections are under the same water as the film.
+
+     The film canvas stays in the document as the texture source, hidden.
+     No WebGL, or reduced motion asked for, and none of this runs: the
+     film shows as it always did. ---------------------------------- */
+  var wCanvas = document.getElementById('waterCanvas');
+  var wLight = document.getElementById('waterLight');
+  var W_MAX = 14;                     /* rings alive at once */
+  var W = { on: false, t0: 0, next: 0, lx: 0, ly: 0, dirty: true,
+            rip: new Float32Array(W_MAX * 3), passes: [] };
+  for (var wI = 0; wI < W_MAX; wI++) W.rip[wI * 3 + 2] = -99;
+
+  var W_VERT = 'attribute vec2 p;varying vec2 v;' +
+    'void main(){v=p*0.5+0.5;gl_Position=vec4(p,0.0,1.0);}';
+
+  var W_FRAG = '#extension GL_OES_standard_derivatives : enable\n' +
+    'precision highp float;' +
+    'varying vec2 v;' +
+    'uniform sampler2D tex;' +
+    'uniform vec2 res;' +
+    'uniform float t;' +
+    'uniform float amb;' +           /* how much ambient swell this pass shows */
+    'uniform vec3 rip[' + W_MAX + '];' +
+    'void main(){' +
+      'vec2 px=v*res;' +
+      'float h=0.0;' +
+      'h+=sin(px.x*0.0072+t*0.5)*19.0*amb;' +
+      'h+=sin((px.x*0.5+px.y)*0.0059-t*0.38)*15.0*amb;' +
+      'for(int i=0;i<' + W_MAX + ';i++){' +
+        'float age=t-rip[i].z;' +
+        'if(age<0.0||age>3.4)continue;' +
+        'float d=distance(px,rip[i].xy);' +
+        'float ring=d-age*300.0;' +
+        'float life=exp(-age*1.05);' +
+        'float band=exp(-ring*ring/6000.0);' +
+        'float far=1.0/(1.0+d*0.0055);' +
+        'h+=sin(ring*0.082)*life*band*far*9.0;' +
+      '}' +
+      'vec2 g=vec2(dFdx(h),dFdy(h));' +
+      'float lit=clamp(-g.y*2.1,0.0,1.0);' +
+      'float dim=clamp(g.y*1.7,0.0,1.0);' +
+      '\n#ifdef LIGHT\n' +
+        /* only what the surface throws back — 0.5 is soft-light\'s no-op */
+        'vec3 c=vec3(0.5)+vec3(1.0,0.96,0.9)*lit*0.42-vec3(0.5)*dim*0.34;' +
+        'gl_FragColor=vec4(c,clamp((lit+dim)*0.85,0.0,1.0));' +
+      '\n#else\n' +
+        'vec2 uv=v-g*11.0/res;' +
+        'vec3 c=texture2D(tex,clamp(uv,0.002,0.998)).rgb;' +
+        'c+=vec3(1.0,0.94,0.85)*lit*0.09;' +
+        'c*=1.0-dim*0.11;' +
+        'gl_FragColor=vec4(c,1.0);' +
+      '\n#endif\n' +
+    '}';
+
+  function wShader(gl, type, src) {
+    var sh = gl.createShader(type);
+    gl.shaderSource(sh, src); gl.compileShader(sh);
+    if (gl.getShaderParameter(sh, gl.COMPILE_STATUS)) return sh;
+    if (window.__waterDebug) console.log('water shader:', gl.getShaderInfoLog(sh));
+    return null;
+  }
+
+  /* one full-screen pass over the shared height field */
+  function wPass(canvas, light, amb) {
+    if (!canvas) return null;
+    var gl = null;
+    try {
+      gl = canvas.getContext('webgl', { alpha: light, antialias: false, depth: false })
+        || canvas.getContext('experimental-webgl');
+    } catch (e) { gl = null; }
+    if (!gl || !gl.getExtension('OES_standard_derivatives')) return null;
+
+    var vs = wShader(gl, gl.VERTEX_SHADER, W_VERT);
+    var fs = wShader(gl, gl.FRAGMENT_SHADER,
+      light ? W_FRAG.replace('precision highp', '#define LIGHT 1\nprecision highp') : W_FRAG);
+    if (!vs || !fs) { if (window.console && console.debug) console.debug('water:', gl.getShaderInfoLog(gl.createShader(gl.FRAGMENT_SHADER))); }
+    if (!vs || !fs) return null;
+
+    var prog = gl.createProgram();
+    gl.attachShader(prog, vs); gl.attachShader(prog, fs); gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return null;
+    gl.useProgram(prog);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    var a = gl.getAttribLocation(prog, 'p');
+    gl.enableVertexAttribArray(a);
+    gl.vertexAttribPointer(a, 2, gl.FLOAT, false, 0, 0);
+
+    var tex = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, tex);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE,
+      new Uint8Array([0, 0, 0, 255]));
+    gl.uniform1i(gl.getUniformLocation(prog, 'tex'), 0);
+    gl.uniform1f(gl.getUniformLocation(prog, 'amb'), amb);
+    if (light) { gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA); }
+
+    return { c: canvas, gl: gl, tex: tex, light: light, w: 0, h: 0,
+             uRes: gl.getUniformLocation(prog, 'res'),
+             uT: gl.getUniformLocation(prog, 't'),
+             uRip: gl.getUniformLocation(prog, 'rip') };
+  }
+
+  /* two full-screen passes: a phone gets one device pixel each, not 1.5 */
+  function wDpr() {
+    return Math.min(window.devicePixelRatio || 1, window.innerWidth < 760 ? 1 : 1.5);
+  }
+
+  function wFit() {
+    if (!W.on) return;
+    var dpr = wDpr();
+    W.passes.forEach(function (P) {
+      P.w = Math.round(P.c.clientWidth * dpr);
+      P.h = Math.round(P.c.clientHeight * dpr);
+      if (!P.w || !P.h) return;
+      P.c.width = P.w; P.c.height = P.h;
+      P.gl.viewport(0, 0, P.w, P.h);
+    });
+    W.dirty = true;
+  }
+
+  /* a ring, where the pointer is. y is flipped: GL counts up the screen */
+  function wTouch(x, y) {
+    if (!W.on) return;
+    var dpr = wDpr(), i = (W.next++) % W_MAX;
+    W.rip[i * 3] = x * dpr;
+    W.rip[i * 3 + 1] = (window.innerHeight - y) * dpr;
+    W.rip[i * 3 + 2] = (performance.now() - W.t0) / 1000;
+  }
+
+  function wDraw() {
+    if (!W.on) return;
+    var t = (performance.now() - W.t0) / 1000;
+    W.passes.forEach(function (P) {
+      if (!P.w) return;
+      var gl = P.gl;
+      gl.bindTexture(gl.TEXTURE_2D, P.tex);
+      if (!P.light && W.dirty && fCanvas.width && fCanvas.height) {
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, fCanvas);
+      }
+      gl.uniform2f(P.uRes, P.w, P.h);
+      gl.uniform1f(P.uT, t);
+      gl.uniform3fv(P.uRip, W.rip);
+      if (P.light) gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    });
+    W.dirty = false;
+  }
+
+  if (!reduce && fCanvas) {
+    var pRefract = wPass(wCanvas, false, 1);
+    if (pRefract) {
+      W.passes.push(pRefract);
+      var pLight = wPass(wLight, true, 0.42);
+      if (pLight) W.passes.push(pLight);
+      W.on = true;
+      W.t0 = performance.now();
+      fCanvas.classList.add('is-source');
+      if (wLight && !pLight) wLight.style.display = 'none';
+      wFit();
+
+      var wLast = 0;
+      window.addEventListener('pointermove', function (e) {
+        var now = performance.now();
+        if (now - wLast < 70) return;
+        if (Math.abs(e.clientX - W.lx) + Math.abs(e.clientY - W.ly) < 20) return;
+        wLast = now; W.lx = e.clientX; W.ly = e.clientY;
+        wTouch(e.clientX, e.clientY);
+      }, { passive: true });
+      window.addEventListener('pointerdown', function (e) {
+        wTouch(e.clientX, e.clientY);
+      }, { passive: true });
+
+      /* the film texture only needs re-reading when a new frame is painted */
+      var fPaintPlain = fPaint;
+      fPaint = function (i) {
+        var was = F.shown; fPaintPlain(i);
+        if (F.shown !== was) W.dirty = true;
+      };
+    } else {
+      if (wCanvas) wCanvas.style.display = 'none';
+      if (wLight) wLight.style.display = 'none';
+    }
+  } else {
+    if (wCanvas) wCanvas.style.display = 'none';
+    if (wLight) wLight.style.display = 'none';
+  }
+
   /* ── 12c. the road up ─────────────────────────────────────
      The clip is chopped into stills and the scroll position picks
      the frame — nothing plays on its own, in either direction. --- */
@@ -545,9 +748,11 @@
       var fp = y / maxScroll;
       F.cur = lerp(F.cur, fp * (F.count - 1), 0.12);
       fPaint(Math.round(F.cur / F.step) * F.step);
-      fCanvas.style.transform = 'scale(' + (1.14 - fp * 0.12).toFixed(4) +
+      var fTr = 'scale(' + (1.14 - fp * 0.12).toFixed(4) +
         ') translate3d(' + (fp * 1.6 - 0.8).toFixed(2) + '%,' + (1.4 - fp * 2.8).toFixed(2) + '%,0)';
+      (W.on ? wCanvas : fCanvas).style.transform = fTr;
     }
+    wDraw();
 
     /* the road up */
     if (rSec && !reduce && y + vh > R.top && y < R.top + R.len + vh) {

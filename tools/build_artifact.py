@@ -115,10 +115,6 @@ def main():
     css  = (ROOT / 'assets/css/style.css').read_text()
     js   = (ROOT / 'assets/js/main.js').read_text()
 
-    # the droplet tile, referenced from the stylesheet
-    css = css.replace('url(../img/glass/drops.webp)',
-                      'url(%s)' % data_uri('assets/img/glass/drops.webp'))
-
     # photographs and marks, referenced from both the markup and the script
     for p in sorted((ROOT / 'assets/img/photos').glob('*.jpg')) + \
              [ROOT / 'assets/img/logo.svg', ROOT / 'assets/img/favicon.svg']:

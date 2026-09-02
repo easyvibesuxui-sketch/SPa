@@ -47,7 +47,6 @@ assets/js/main.js        611 lines — the whole scroll engine, vanilla
 assets/img/photos/       11 supplied JPEGs, 703 KB
 assets/img/route/        64 WebP frames of the map, 1.3 MB
 assets/img/steam/        120 WebP frames of the background film, 818 KB
-assets/img/glass/        drops.webp — the wet-pane tile, 12 KB
 assets/img/logo.svg      wordmark + dew mark
 assets/img/favicon.svg
 tools/film.py            the background-film recipe
@@ -167,6 +166,7 @@ All hand-written in `assets/js/main.js`. Numbered modules in the file:
 | 12b | video slots | `VIDEOS = { hero:'', dark:'' }` — drop in a path and it mounts |
 | 12c | the road up | scroll-scrubbed map canvas |
 | 12d | the room behind the glass | scroll-scrubbed background canvas |
+| 12e | the surface | the water it is seen through, and the rings the pointer leaves |
 | 13 | loader | real progress read, releases the hero split |
 | 14 | rAF loop | everything above is driven from one loop |
 | 15 | boot | |
@@ -304,34 +304,60 @@ bottom with `mask-image` — transparent for the first and last 15% — so the f
 still breathes between sections rather than the page cutting photograph to
 photograph. `data-parallax="0.08"` on each drifts it against the content.
 
-## 8. The pane — `assets/img/glass/drops.webp`
+## 8. The surface — no file at all
 
-In front of the film sits the glass it is seen through: a seamless **1024 px tile with
-eighteen beads and nothing else** — four large, four mid, ten specks — placed by a
-minimum-distance rule so the tile never clusters and the repeat never announces
-itself. Each bead is drawn with a dark rim above, a bright refracted rim below and a
-specular dot.
+The room is seen through water, and the water answers the pointer. Nothing here
+is an image: one height field, described in the shader and never stored.
 
-```css
-.film__glass{position:absolute;inset:-6%;
-  background-image:url(../img/glass/drops.webp);
-  background-size:1100px 1100px;background-repeat:repeat;
-  opacity:.72;animation:drift 74s linear infinite}
-.film__glass::after{ /* four soft warm radials, mix-blend-mode:soft-light */
-  animation:drift 112s linear infinite reverse}
+```glsl
+h += sin(px.x*0.0072 + t*0.5)*19.0*amb;          // the ambient swell,
+h += sin((px.x*0.5+px.y)*0.0059 - t*0.38)*15.0*amb;   // two long shallow waves
+for (int i=0;i<14;i++){                          // and the rings
+  float age  = t - rip[i].z;   if (age<0.0||age>3.4) continue;
+  float d    = distance(px, rip[i].xy);
+  float ring = d - age*300.0;                    // px per second
+  h += sin(ring*0.082)
+     * exp(-age*1.05)                            // it dies out
+     * exp(-ring*ring/6000.0)                    // only near the ring
+     * (1.0/(1.0+d*0.0055))                      // and near its origin
+     * 9.0;
+}
+vec2 g = vec2(dFdx(h), dFdy(h));                 // the slope is the whole effect
 ```
 
-Tiling at 1100 px puts roughly **eight to ten drops on a laptop screen** — a pane
-someone has already wiped, not a downpour.
+Fourteen rings are alive at once in a ring buffer — a new one overwrites the
+oldest. `OES_standard_derivatives` is required, and its absence is one of the
+two ways this turns itself off.
 
-No mist and no sliding drips: at this density a tail reads as a stack of rings rather
-than water. **No CSS blur on the canvas beneath** — the beads are what put the room
-behind glass; softening the frame as well only cost definition.
+**Two passes, one shader.** `LIGHT` is `#define`d into the second.
 
-The generator is short and worth keeping if you want to retune density — beads are
-drawn at 2× and downsampled, with wraparound draws at ±W/±H for seamlessness.
+| Canvas | Where | What it does |
+|---|---|---|
+| `#waterCanvas` | inside `.film`, under the page | samples the film canvas at `v - g*11/res` — refraction, so the room bends |
+| `#waterLight` | `position:fixed`, `z-index:88`, `mix-blend-mode:soft-light` | draws only the light the slope throws back, over the whole page, so the sections are under the same water as the film |
 
----
+`0.5` is soft-light's no-op, so the light pass writes `vec3(0.5)` plus the
+highlight and minus the shadow, with alpha only where the surface is tilted.
+Its ambient term runs at 0.42 of the refraction pass's, so an untouched page is
+almost still.
+
+`#filmCanvas` stays in the document as the texture source, hidden with
+`visibility:hidden` — which keeps its backing store, where `display:none` would
+be riskier. It is re-uploaded only when the film paints a new frame, i.e. only
+while scrolling; the rings animate off the same texture for free.
+
+Pointer moves are throttled to one ring per 70 ms and 20 px of travel, so a fast
+sweep leaves a wake rather than a wall. `pointerdown` always makes one.
+
+**Off by default in two cases**, and then the film simply shows as it always
+did: no WebGL (or no derivatives extension), and `prefers-reduced-motion`.
+
+### What it replaced
+
+A seamless 1024 px tile of eighteen drawn water beads on a pane of glass,
+tiled at 1100 px. The idea was a pane someone had already wiped. In practice a
+bead at that size read as a smudge rather than a drop, and the repeat sat on
+every photograph on the page. The tile is deleted; nothing references it.
 
 ## 9. Images
 

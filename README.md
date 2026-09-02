@@ -161,28 +161,37 @@ little against the content.
 Keep a section's ground different from the photographs shown inside it, and
 keep the type's contrast: the text carries only a `text-shadow` for ground.
 
-### The pane
+### The surface
 
-In front of the film sits the glass it is seen through: `assets/img/glass/drops.webp`,
-a seamless 1024 px tile carrying **eighteen beads and nothing else** — four large,
-four mid-sized, ten specks — scattered by a minimum-distance rule so the tile never
-clusters and the repeat never announces itself. Each bead is drawn with a dark rim
-above, a bright refracted rim below and a specular dot. It tiles at 1100 px, which
-puts roughly **eight to ten drops on a laptop screen**: a pane someone has already
-wiped, not a downpour.
+The room is seen through water, and the water answers the pointer. There is no
+image in it at all — one height field, described in a shader and never stored:
 
-No mist, and no sliding drips. At this density a tail reads as a stack of rings
-rather than water, so there are none; adding beads back to make drips work would
-undo the point.
+* a slow ambient swell, two long shallow waves that never stop;
+* a ring for every place the pointer has been, spreading outward at 300 px a
+  second and dying over about three seconds. Fourteen are alive at once, in a
+  ring buffer; a new one overwrites the oldest.
 
-The tile sits at 72% opacity on a 74-second drift, with a warm soft-light wash over
-it on a slower counter-drift. The canvas beneath carries **no CSS blur at all** — the
-beads are what puts the room behind glass, and they read sharper against a frame that
-isn't softened twice — and now that the frames themselves are sharp, that is the
-whole of the effect: a clear room, seen through beaded glass.
+Two passes read that field. The lower one, `#waterCanvas`, samples the film
+canvas and offsets the sample by the slope of the surface — refraction, so the
+room bends where the water moves. The upper one, `#waterLight`, is fixed over
+the whole page at `z-index:88` on a `mix-blend-mode:soft-light`, and draws only
+the light the slope throws back, so the sections are under the same water as
+the film rather than sitting on top of it. Both are the same shader; `LIGHT` is
+`#define`d into one of them.
 
-The pane and the film are both tuned by eye; the pane is the faster of the two,
-since it costs no re-render.
+`#filmCanvas` stays in the document as the texture source and is hidden with
+`visibility`, which keeps its backing store. It is only re-uploaded when the
+film actually paints a new frame — which is to say, only while scrolling.
+
+Pointer moves are throttled to one ring per 70 ms and 20 px, so a fast sweep
+leaves a wake rather than a wall. `pointerdown` always makes one.
+
+**Without WebGL, or under `prefers-reduced-motion`, none of it runs**: both
+canvases are hidden and the film shows exactly as it did before.
+
+This replaced a tile of drawn water beads on a pane of glass. At any real size
+a bead read as a smudge rather than a drop, and eighteen of them tiling across
+a photograph was a texture the page did not need.
 
 The hero has no image of its own: the room is what the visitor opens on, and the
 first frames of the film play as they leave it.
