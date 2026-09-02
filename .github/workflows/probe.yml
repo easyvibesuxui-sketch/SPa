@@ -3,8 +3,13 @@ name: Probe
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "runner reached"
+      - run: echo "runner reached with pages scope"
