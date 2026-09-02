@@ -113,14 +113,14 @@ ul{list-style:none}
   50%{transform:translate3d(1.6%,-2.2%,0)}
   100%{transform:translate3d(0,0,0)}}
 .film__scrim{position:absolute;inset:0;background:
-  radial-gradient(145% 110% at 50% 34%,rgba(11,9,8,0) 0%,rgba(11,9,8,.12) 60%,rgba(11,9,8,.38) 100%)}
+  radial-gradient(112% 84% at 50% 48%,rgba(11,9,8,0) 0%,rgba(11,9,8,0) 36%,rgba(11,9,8,.26) 74%,rgba(11,9,8,.66) 100%)}
 .header,main,.footer{position:relative;z-index:1}
 
 /* the room is bright behind the words, so the words carry their own ground */
 .h-display,.lede,.p,.sig,.facts,.caption,.minor,.trow h3,.rcard p,.rcard h3,.rcard__meta,
 .dcard p,.dcard h3,.dcard span,.tick__d,.tick__p,.tick h3,.hours li,.notes p,.temps li,
 .table__facts li,.leg,.route__addr,.footer__line,.footer__nav a,.footer__meta,.hero__block-s,
-.menu__info,.dark__note,.trow__d,.trow__p,.eyebrow,.hero__ka{text-shadow:0 1px 26px rgba(6,5,4,.9),0 0 6px rgba(6,5,4,.5)}
+.menu__info,.dark__note,.trow__d,.trow__p,.eyebrow,.hero__ka{text-shadow:0 1px 32px rgba(6,5,4,.96),0 1px 10px rgba(6,5,4,.8),0 0 3px rgba(6,5,4,.5)}
 
 /* ── overlays ─────────────────────────────────────────────── */
 .grain{
@@ -134,7 +134,7 @@ ul{list-style:none}
 }
 .vignette{
   position:fixed;inset:0;z-index:89;pointer-events:none;
-  background:radial-gradient(130% 100% at 50% 45%,transparent 52%,rgba(5,4,3,.26) 100%);
+  background:radial-gradient(118% 90% at 50% 48%,transparent 58%,rgba(5,4,3,.34) 100%);
 }
 
 .progress{position:fixed;top:0;left:0;right:0;height:1px;z-index:95;background:rgba(199,180,156,.10)}
@@ -322,7 +322,7 @@ ul{list-style:none}
 .hero__ka em{font-style:italic;font-family:var(--f-display);color:var(--sand-d)}
 
 /* ── marquee ──────────────────────────────────────────────── */
-.marquee{overflow:hidden;padding:36px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(16,11,9,.52)}
+.marquee{overflow:hidden;padding:36px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(16,11,9,.42)}
 .marquee__track{display:flex;align-items:center;gap:28px;white-space:nowrap;will-change:transform;width:max-content}
 .marquee span{font-family:var(--f-display);font-size:clamp(1.1rem,2vw,1.8rem);letter-spacing:.06em;color:var(--sand)}
 .marquee span:nth-child(4n+1){font-family:var(--f-ka);color:var(--clay-2)}
@@ -334,7 +334,7 @@ ul{list-style:none}
 /* ── section frame ────────────────────────────────────────── */
 section{position:relative}
 .intro,.house,.touch,.table,.tickets{padding:clamp(130px,20vh,280px) var(--pad)}
-.intro,.house,.touch,.table,.water{background:linear-gradient(180deg,transparent 0,rgba(9,7,6,.34) 9%,rgba(9,7,6,.34) 91%,transparent 100%)}
+.intro,.house,.touch,.table,.water{background:linear-gradient(180deg,transparent 0,rgba(9,7,6,.12) 9%,rgba(9,7,6,.12) 91%,transparent 100%)}
 
 /* 01 intro */
 .intro__inner{display:grid;grid-template-columns:1.15fr .85fr;gap:var(--gut);align-items:center;max-width:1500px;margin:0 auto}
@@ -360,7 +360,7 @@ section{position:relative}
 
 /* 03 rituals — horizontal */
 .hs{--panels:6;height:calc(var(--panels) * 60vh + 100vh);
-  background:linear-gradient(180deg,transparent 0,rgba(16,11,9,.5) 380px,rgba(16,11,9,.5) calc(100% - 380px),transparent 100%)}
+  background:linear-gradient(180deg,transparent 0,rgba(16,11,9,.3) 380px,rgba(16,11,9,.3) calc(100% - 380px),transparent 100%)}
 .hs__sticky{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:clamp(30px,4.6vh,62px);padding-top:clamp(84px,11vh,130px)}
 .hs__head{padding:0 var(--pad);display:grid;gap:20px;position:relative}
 @keyframes slide{0%{transform:translateX(-14px)}100%{transform:translateX(42px)}}
@@ -385,6 +385,7 @@ section{position:relative}
 .water__m{position:absolute}
 .water__m--1{left:0;top:6%;width:clamp(220px,32vw,440px);aspect-ratio:3/4}
 .water__m--2{right:2%;top:0;width:clamp(200px,27vw,380px);aspect-ratio:4/5}
+.water__m--2 img{filter:saturate(.95) contrast(1.04) brightness(1.35)}
 .water__m--3{left:38%;bottom:-6%;width:clamp(180px,24vw,340px);aspect-ratio:1/1}
 .water__copy{position:relative;max-width:1500px;margin:clamp(84px,11vw,160px) auto 0;width:100%;display:grid;gap:46px;justify-items:center;text-align:center}
 .water__copy .lede{text-align:center;max-width:26ch}
@@ -444,7 +445,7 @@ section{position:relative}
 .table__facts span{font-size:12.5px;letter-spacing:.01em;color:var(--sand-d)}
 
 /* 08 tickets */
-.tickets{background:linear-gradient(180deg,transparent 0,rgba(16,11,9,.5) 340px,rgba(16,11,9,.5) calc(100% - 340px),transparent 100%)}
+.tickets{background:linear-gradient(180deg,transparent 0,rgba(16,11,9,.3) 340px,rgba(16,11,9,.3) calc(100% - 340px),transparent 100%)}
 .tickets__head{max-width:1500px;margin:0 auto clamp(66px,8vw,120px);display:grid;gap:32px}
 .tickets__grid{max-width:1500px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(20px,2.4vw,42px)}
 .tick{border:1px solid var(--line);padding:clamp(32px,3vw,52px);display:grid;gap:22px;align-content:start;transition:background .6s var(--ease),border-color .6s var(--ease),transform .7s var(--ease)}
