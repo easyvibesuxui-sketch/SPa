@@ -123,8 +123,10 @@ rather than water, so there are none; adding beads back to make drips work would
 undo the point.
 
 The tile sits at 72% opacity on a 74-second drift, with a warm soft-light wash over
-it on a slower counter-drift. The canvas beneath carries a 0.8 px blur — just enough
-that the room sits *behind* something.
+it on a slower counter-drift. The canvas beneath carries **no CSS blur at all** — the
+beads are what puts the room behind glass, and they read sharper against a frame that
+isn't softened twice. (The frosting baked into the frames is a separate thing and
+stays; see above.)
 
 The pane is the only treatment that may be tuned by eye. The frosting underneath
 it is not — see above.
