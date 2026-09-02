@@ -338,6 +338,26 @@ ul{list-style:none}
 /* ── section frame ────────────────────────────────────────── */
 section{position:relative}
 .intro,.house,.touch,.table,.tickets{padding:clamp(130px,20vh,280px) var(--pad)}
+
+/* ── section grounds ──────────────────────────────────────
+   Each section carries its own photograph, dimmed and
+   feathered top and bottom, so the sections read as rooms
+   while the scroll film still breathes between them.
+   The pattern is the one .dark already used. ----------- */
+.intro,.house,.water,.touch,.table,.tickets{position:relative;isolation:isolate}
+.hs__sticky{isolation:isolate}
+.secbg{position:absolute;inset:0;z-index:-2;overflow:hidden;pointer-events:none;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 15%,#000 85%,transparent 100%);
+  mask-image:linear-gradient(180deg,transparent 0,#000 15%,#000 85%,transparent 100%)}
+.secbg img{position:absolute;top:-9%;left:0;width:100%;height:118%;
+  object-fit:cover;filter:saturate(.6) brightness(.42) contrast(1.05);will-change:transform}
+.secbg::after{content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(180deg,rgba(11,9,8,.62),rgba(11,9,8,.3) 42%,rgba(11,9,8,.68)),
+    radial-gradient(130% 92% at 50% 42%,rgba(11,9,8,0),rgba(11,9,8,.5))}
+@media (max-width:760px){
+  .secbg img{filter:saturate(.6) brightness(.34) contrast(1.05)}
+}
 .intro,.house,.touch,.table,.water{background:none}
 
 /* 01 intro */

@@ -284,6 +284,26 @@ To re-chop: `fps=8,scale=1100:-2`, WebP q62 into `assets/img/route/`, set `R.cou
 
 ---
 
+### 7c. The section grounds
+
+The film alone left the page reading empty — one continuous shot behind
+everything gives no section an identity. Each section now carries its own
+photograph under its content: `.secbg`, an absolute layer at `z-index:-2`
+inside a `position:relative; isolation:isolate` section — the pattern `.dark`
+already used, generalised.
+
+Intro `sauna-lamp` · House `towel-figure` · Rituals `infrared-slats` (inside
+`.hs__sticky`, which is the pinned frame) · Water `back-night`, the one cool
+ground among warm ones · Touch `rain-face` · After Dark its existing
+`.dark__media` · Table `bath-window` · Tickets `pool-night`. **The Road Up gets
+none** — the map canvas needs black under it.
+
+The image runs at `saturate(.6) brightness(.42) contrast(1.05)` (.34 on phones)
+under a vertical scrim and a soft radial, and the layer is feathered top and
+bottom with `mask-image` — transparent for the first and last 15% — so the film
+still breathes between sections rather than the page cutting photograph to
+photograph. `data-parallax="0.08"` on each drifts it against the content.
+
 ## 8. The pane — `assets/img/glass/drops.webp`
 
 In front of the film sits the glass it is seen through: a seamless **1024 px tile with

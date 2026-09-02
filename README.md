@@ -128,6 +128,39 @@ Nothing plays. There is no `<video>` element anywhere in the page: the scroll
 position picks the frame and nothing else does. Scroll stops, the image stops;
 scroll back and it unwinds.
 
+### The section grounds
+
+The film runs behind everything, but a single continuous shot leaves the
+sections without identity of their own. Each one therefore carries a
+photograph of its own underneath its content — `.secbg`, the pattern
+`.dark` already used: an absolutely positioned layer at `z-index:-2` inside a
+section that is `position:relative; isolation:isolate`.
+
+| Section | Ground |
+|---|---|
+| Intro | `sauna-lamp.jpg` |
+| The House | `towel-figure.jpg` |
+| Rituals (inside `.hs__sticky`) | `infrared-slats.jpg` |
+| Water | `back-night.jpg` — the one cool ground, against the warm ones either side |
+| Touch | `rain-face.jpg` |
+| After Dark | `sauna-bench-dark.jpg`, its own `.dark__media` from before |
+| Table | `bath-window.jpg` |
+| Hours & Tickets | `pool-night.jpg` |
+
+**The Road Up has none**, deliberately: the map is drawn on a canvas and needs
+black under it.
+
+Two things make them sit rather than shout. The image is dimmed —
+`saturate(.6) brightness(.42) contrast(1.05)`, and .34 below 760 px — with a
+vertical scrim and a soft radial over it. And the whole layer is feathered top
+and bottom with `mask-image`, transparent for the first and last 15%, so the
+film reads between sections instead of the page cutting from one photograph
+to the next. Each ground also takes `data-parallax="0.08"`, so it drifts a
+little against the content.
+
+Keep a section's ground different from the photographs shown inside it, and
+keep the type's contrast: the text carries only a `text-shadow` for ground.
+
 ### The pane
 
 In front of the film sits the glass it is seen through: `assets/img/glass/drops.webp`,
