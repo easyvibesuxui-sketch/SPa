@@ -108,6 +108,19 @@ the original. Do not replace this with a `<video>` under a CSS blur: a CSS filte
 is removed in one devtools click, and the point of the treatment is that the
 obscuring is baked in.
 
+### The pane
+
+In front of the film sits the glass it is seen through: `assets/img/glass/drops.webp`,
+a seamless 640 px tile of rain beading on a cold window — each drop drawn with a
+dark rim above, a bright refracted rim below and a specular dot, a few of them
+sliding with a tail behind. It tiles at 540 px, at 58% opacity, drifting on a
+74-second loop, with a warm soft-light wash over it on a slower counter-drift. The
+canvas itself carries a 2.5 px blur so the room reads as *behind* something rather
+than merely low-resolution.
+
+The pane is the only treatment that may be tuned by eye. The frosting underneath
+it is not — see above.
+
 The hero has no image of its own: the room is what the visitor opens on, and the
 first frames of the film play as they leave it.
 
