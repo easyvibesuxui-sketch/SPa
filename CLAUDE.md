@@ -5,27 +5,35 @@
 **No change is finished until it is published.** After any edit to `index.html`,
 `assets/**`, or the copy, do all three, in this order:
 
-1. **Commit and push** to `claude/batumi-spa-redesign-szk3ev`.
+1. **Commit and push** to `claude/batumi-spa-redesign-szk3ev`. That branch is the
+   repository default and GitHub Pages serves it directly, so the push *is* the
+   deploy — https://easyvibesuxui-sketch.github.io/SPa/ rebuilds within a minute.
 2. **Rebuild and republish the preview** — run the scratchpad's
-   `build_artifact.py` to regenerate the single-file build, then publish
-   `nami.html` to the **same** artifact URL:
+   `build_artifact.py`, then publish `nami.html` to the **same** artifact URL:
    `https://claude.ai/code/artifact/ec037096-8325-4c3d-b0c5-0d92fd93ba40`
-   Never publish to a new artifact URL — the client holds this one. Passing the
-   same file path republishes in place.
-3. **Report it as live only after the republish returns that URL.**
+   Never publish to a new artifact URL — the client holds this one. Publishing
+   the same file path republishes in place.
+3. **Say it is live only after both have gone out.**
 
 Never leave a change only in the working tree.
 
 ### The two links
 
-| Link | State |
-|------|-------|
-| `https://claude.ai/code/artifact/ec037096-8325-4c3d-b0c5-0d92fd93ba40` | **The live one.** Always current — republished on every change. Self-contained: photography and the 64 route frames are inlined, so it needs no network. Private until shared from the artifact's own share menu. |
-| `https://easyvibesuxui-sketch.github.io/SPa/` | Waiting on the repository. `.github/workflows/pages.yml` republishes it on every push, but the job is never picked up by a runner — Actions is disabled for this repository, so the run fails in two seconds with no steps. It will start working, with no further changes, once **Settings → Actions → General → Allow all actions** is enabled and **Settings → Pages → Source** is set to **GitHub Actions**. |
+| Link | What it is |
+|------|-----------|
+| `https://easyvibesuxui-sketch.github.io/SPa/` | The site. Served straight from this branch's root, so a push publishes it. Loads the three remaining Unsplash frames and Google Fonts from the network. |
+| `https://claude.ai/code/artifact/ec037096-8325-4c3d-b0c5-0d92fd93ba40` | The preview, republished on every change. Self-contained — photography and the 64 route frames are inlined — so it needs no network, and three scenic frames stand in as drawn light studies. |
 
-The GitHub Pages build is the truer one when it runs — it loads the three
-remaining Unsplash frames and Google Fonts from the network, which the inlined
-preview stands in for.
+### Do not add a deploy workflow
+
+This repository blocks marketplace actions: any workflow using `actions/checkout`,
+`actions/configure-pages`, `actions/upload-pages-artifact` or `actions/deploy-pages`
+ends in `startup_failure` in under a second, with no log and no steps. A runner is
+reachable and `pages: write` / `id-token: write` are grantable — probes with plain
+`run:` steps pass — so the block is the actions policy alone. Pages therefore
+serves from the branch (Settings → Pages → Source: *Deploy from a branch*,
+branch `claude/batumi-spa-redesign-szk3ev`, folder `/ (root)`), which needs no
+workflow at all. `.nojekyll` at the root keeps the files served verbatim.
 
 ## The site
 
