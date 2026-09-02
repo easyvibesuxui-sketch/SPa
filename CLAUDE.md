@@ -8,8 +8,8 @@
 1. **Commit and push** to `claude/batumi-spa-redesign-szk3ev`. That branch is the
    repository default and GitHub Pages serves it directly, so the push *is* the
    deploy — https://easyvibesuxui-sketch.github.io/SPa/ rebuilds within a minute.
-2. **Rebuild and republish the preview** — run the scratchpad's
-   `build_artifact.py`, then publish `nami.html` to the **same** artifact URL:
+2. **Rebuild and republish the preview** — run `python3 tools/build_artifact.py`,
+   then publish the `nami.html` it writes to the **same** artifact URL:
    `https://claude.ai/code/artifact/ec037096-8325-4c3d-b0c5-0d92fd93ba40`
    Never publish to a new artifact URL — the client holds this one. Publishing
    the same file path republishes in place.

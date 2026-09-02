@@ -373,11 +373,13 @@ serving needs no workflow at all.
 
 ### The preview artifact
 
-A second, self-contained build exists for previewing without any network: CSS, JS, all
-11 photos, 64 route frames, 120 steam frames and the droplet tile are inlined as data
-URIs, and the remaining Unsplash frames are replaced with drawn SVG light studies.
-Output is one ~4.6 MB HTML file. Worth keeping the idea if you need to hand someone a
-single file.
+A second, self-contained build exists for previewing without any network:
+`python3 tools/build_artifact.py` writes `nami.html` at the repository root — CSS, JS,
+all 11 photos, 64 route frames, 120 background stills and the droplet tile inlined as
+data URIs, the three Unsplash frames replaced with drawn SVG light studies, and the
+document shell stripped because the artifact host supplies its own. Google Fonts stays
+a `<link>`: that origin is allowed there, so the type survives. Output is one ~6.3 MB
+file.
 
 Gotcha from building it: use `json.dumps()`, not `repr()`, when writing image arrays
 into inline JS — `repr()` produced nested unescaped quotes that killed the entire
