@@ -71,7 +71,7 @@ progressive JPEG, quality 82, EXIF stripped — 703 KB for the set):
 
 | File | Where it appears |
 |------|------------------|
-| `sauna-lamp.jpg` | hero · The Silence Room |
+| `sauna-lamp.jpg` | The Silence Room |
 | `bath-window.jpg` | intro · treatment preview 05 |
 | `sauna-cabin.jpg` | The House, left frame |
 | `infrared-slats.jpg` | The House, right frame |
@@ -102,6 +102,9 @@ the repository** — only the frosted stills, and they are not recoverable back 
 the original. Do not replace this with a `<video>` under a CSS blur: a CSS filter
 is removed in one devtools click, and the point of the treatment is that the
 obscuring is baked in.
+
+The hero has no image of its own: the room is what the visitor opens on, and the
+first frames of the film play as they leave it.
 
 A fixed canvas draws one frame per scroll position across the entire document —
 nothing plays on its own — under a condensation layer (droplets and streaks that
