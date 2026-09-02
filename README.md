@@ -90,24 +90,52 @@ gradient rather than a broken image. The menu overlay's set lives in `MENU_IMGS`
 
 ## The room behind the glass
 
-The whole page sits on one scroll-driven background: the supplied 20-second clip,
-chopped into **120 stills** at 6 fps and frosted in the pixels themselves —
-each frame is reduced to 104 px wide, blurred, enlarged again to 560 px and
-blurred a second time, then warmed and lifted in contrast. The figure is backlit
-in every frame, so what survives the reduction is warm wood, moving steam and a
-soft shape where a body is — the light behind it, and nothing else. The set is
-484 KB. `tools/frost.py` is the recipe, with the
-ffmpeg line in its docstring; re-run it to swap the clip.
+The whole page sits on one scroll-driven background: **120 stills**, 960 × 540,
+WebP quality 68, 1.8 MB for the set. They are drawn at full photographic
+detail — wood grain, the filament in the lamp, water, tile — because they are
+built from the house photography itself rather than from footage.
 
-Do not sharpen it further. 104 px is where the footage reads as footage rather
-than a gradient while the source stays unrecoverable; past it the reduction
-stops doing its job.
+`tools/film.py` is the recipe. Six rooms, twenty frames each, a slow push
+through every one and a smoothstep dissolve into the next across the last third
+of a segment:
 
-The frames live in `assets/img/steam/`. **The source video is deliberately not in
-the repository** — only the frosted stills, and they are not recoverable back to
-the original. Do not replace this with a `<video>` under a CSS blur: a CSS filter
-is removed in one devtools click, and the point of the treatment is that the
-obscuring is baked in.
+| Frames | Room | What the visitor is scrolling past |
+|---|---|---|
+| 0 – 19 | `sauna-lamp.jpg` | the dark room and its one lamp — the hero |
+| 20 – 39 | `sauna-bench-dark.jpg` | the lit doorway, the walnut |
+| 40 – 59 | `infrared-slats.jpg` | heat: slats, cove light |
+| 60 – 79 | `pool-night.jpg` | water, candles, steam |
+| 80 – 99 | `shower-dark.jpg` | the darkest stretch — After Dark |
+| 100 – 119 | `towel-figure.jpg` | a quiet close |
+
+Everything is tuned in the four constants and the `ROOMS` table at the top of
+the script: frame count, output size, dissolve length, quality, and per room a
+start rect, an end rect and an exposure trim. The trim is what keeps the film
+from flaring as it moves from a near-black room to a lit one — `infrared-slats`
+runs at 0.62, `shower-dark` at 1.16. The global grade is the house one: warm
+the reds, cool the blues, brightness 0.86 so the cream type keeps its ground,
+contrast 1.06, then a light unsharp mask to put back what the resize softened.
+
+Re-run it after any change to the photographs:
+
+```bash
+python3 tools/film.py
+```
+
+If you change `COUNT`, set `F.count` in `assets/js/main.js` to match.
+
+A clip can take the place of the photographs — chop it into the same filenames
+and nothing else changes:
+
+```bash
+ffmpeg -i clip.mp4 -vf "fps=6,scale=960:-2" -frames:v 120 assets/img/steam/s-%03d.png
+```
+
+Two things to keep. **No autoplay, in either direction** — the frames are
+picked by scroll position and by nothing else; there is no `<video>` anywhere in
+the page. And nothing brighter than the grade above: the text carries its own
+ground with a shadow, and the moment the background flares, the ground stops
+working.
 
 ### The pane
 
@@ -126,11 +154,11 @@ undo the point.
 The tile sits at 72% opacity on a 74-second drift, with a warm soft-light wash over
 it on a slower counter-drift. The canvas beneath carries **no CSS blur at all** — the
 beads are what puts the room behind glass, and they read sharper against a frame that
-isn't softened twice. (The frosting baked into the frames is a separate thing and
-stays; see above.)
+isn't softened twice — and now that the frames themselves are sharp, that is the
+whole of the effect: a clear room, seen through beaded glass.
 
-The pane is the only treatment that may be tuned by eye. The frosting underneath
-it is not — see above.
+The pane and the film are both tuned by eye; the pane is the faster of the two,
+since it costs no re-render.
 
 The hero has no image of its own: the room is what the visitor opens on, and the
 first frames of the film play as they leave it.

@@ -323,7 +323,7 @@
   }
 
   /* ── 12d. the room behind the glass ───────────────────────
-     A frosted still per scroll position, across the whole page.
+     One still per scroll position, across the whole page.
      It never plays by itself — no autoplay, in either direction. */
   var fCanvas = document.getElementById('filmCanvas');
   var F = { count: 120, imgs: [], step: 1, ctx: null, cur: 0, shown: -1, w: 0, h: 0 };

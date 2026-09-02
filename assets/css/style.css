@@ -93,9 +93,9 @@ ul{list-style:none}
 .sig em{color:var(--sand);font-style:italic}
 
 /* ── the room behind the glass ────────────────────────────
-   The clip is chopped into stills, frosted to abstraction in the
-   pixels themselves, and drawn by scroll position — it never plays
-   on its own. ------------------------------------------------- */
+   Six rooms in 120 sharp stills, dissolved into each other and
+   drawn by scroll position — it never plays on its own.
+   See tools/film.py. --------------------------------------- */
 .film{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .film__canvas{position:absolute;inset:0;width:100%;height:100%;display:block;
   opacity:var(--film,1);transform:scale(1.16);

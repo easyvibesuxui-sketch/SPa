@@ -46,11 +46,11 @@ assets/css/style.css     591 lines — tokens + every section
 assets/js/main.js        611 lines — the whole scroll engine, vanilla
 assets/img/photos/       11 supplied JPEGs, 703 KB
 assets/img/route/        64 WebP frames of the map, 1.3 MB
-assets/img/steam/        120 WebP frames of the background film, 484 KB
+assets/img/steam/        120 WebP frames of the background film, 1.8 MB
 assets/img/glass/        drops.webp — the wet-pane tile, 12 KB
 assets/img/logo.svg      wordmark + dew mark
 assets/img/favicon.svg
-tools/frost.py           the background-frame recipe
+tools/film.py            the background-film recipe
 .nojekyll                so GitHub Pages serves the files verbatim
 ```
 
@@ -208,7 +208,8 @@ stops, image stops. Scroll back, it unwinds.
 
 ### 7a. The background film — `assets/img/steam/`
 
-120 WebP stills, painted on a `position:fixed` canvas behind everything.
+120 WebP stills, 960 × 540, q68, 1.8 MB for the set, painted on a
+`position:fixed` canvas behind everything.
 
 ```js
 var F = { count:120, imgs:[], step:1, ctx:null, cur:0, shown:-1 };
@@ -234,22 +235,39 @@ Notes that matter:
 * Minor inconsistency to know about: CSS sets `transform:scale(1.16)` for the pre-JS
   state, the loop starts from `1.14`. Harmless; unify if it bothers you.
 
-**Making the frames** — `tools/frost.py`:
+**Making the frames** — `tools/film.py`:
 
 ```bash
-ffmpeg -i clip.mp4 -vf "fps=6,scale=960:-2" -frames:v 120 raw/f-%03d.png
-python3 tools/frost.py raw
+python3 tools/film.py
 ```
 
-The script reduces each frame to **104 px wide**, blurs, scales back up to 560 px,
-blurs again, then warms (R×1.07, B×0.90) and lifts contrast 1.14 / brightness 1.03,
-saving WebP q74. If you change the frame count, set `F.count` in `main.js` to match.
+There is no source clip. The film is built from the house photography itself: six
+rooms, twenty frames each, a slow push through every one and a smoothstep dissolve
+into the next across the last third of a segment. In scroll order —
+`sauna-lamp` (the dark room and its lamp), `sauna-bench-dark` (the lit doorway),
+`infrared-slats` (heat), `pool-night` (water), `shower-dark` (the darkest stretch,
+under After Dark) and `towel-figure` (a quiet close).
 
-That reduction is mine, and the reason is plain: the source clip is explicit, so the
-obscuring is baked into the pixels rather than applied as a removable CSS filter. If
-you supply footage that doesn't need it, delete the two blur/resize steps from
-`frost.py` and export the frames at 960 px — everything else in the pipeline is
-unchanged, and the result is sharp.
+Everything lives in the four constants and the `ROOMS` table at the top of the
+script: count, output size, dissolve length, quality, and per room a start rect, an
+end rect and an exposure trim. The trim is what keeps the film from flaring as it
+moves from a near-black room to a lit one — `infrared-slats` runs at 0.62,
+`shower-dark` at 1.16. The global grade is the house one: warm the reds, cool the
+blues, brightness 0.86 so the cream type keeps its ground, contrast 1.06, then a
+light unsharp mask to put back what the resize softened. Change `COUNT` and set
+`F.count` in `main.js` to match.
+
+The source photographs are 736 px wide on the whole (`sauna-lamp` is 1200), so the
+crops sit close to full width and the push-in is shallow — that is the ceiling on
+how far a room can be zoomed before the resize shows. Nothing is blurred anywhere in
+this pipeline.
+
+A clip can take the place of the photographs without touching anything else — chop
+it into the same filenames:
+
+```bash
+ffmpeg -i clip.mp4 -vf "fps=6,scale=960:-2" -frames:v 120 assets/img/steam/s-%03d.png
+```
 
 ### 7b. The road up — `assets/img/route/`
 
@@ -421,13 +439,21 @@ data, on purpose. Voice notes if you rewrite:
 
 ---
 
-## 14. One thing that is mine, not the project's
+## 14. The background film, and why it is built the way it is
 
-The background frames are frosted because the supplied clip is explicit. I would not
-publish it sharp, and that is a limit of mine — not a technical one, and not something
-the code enforces beyond what `tools/frost.py` does. Everything else here is yours to
-take anywhere.
+Earlier the film came from a supplied clip, chopped into stills and reduced to
+104 px before being enlarged again — the obscuring baked into the pixels, because
+the clip was explicit and a CSS blur comes off in one devtools click. The client
+asked for a background that reads clearly, and a frame carrying 104 px of detail
+cannot be sharpened: the information is gone, and the clip is not in the
+repository.
 
-If you point the pipeline at footage that doesn't need obscuring, strip the two
-blur/resize lines from `frost.py`, export at 960 px, and the whole scroll-scrub
-background works exactly as built, at full sharpness.
+So the film is now built from the house photography instead — real rooms, at full
+photographic detail, graded and dissolved into one continuous move down the page.
+It is sharp because there is nothing in it that needs hiding, and it costs the
+project nothing: the same eleven photographs the page already ships.
+
+If footage does arrive later, the ffmpeg line in §7a drops it straight into the
+same filenames and the whole scroll-scrub background works unchanged. Anything
+that would need obscuring to be publishable does not belong on the page at all;
+pick a clip that doesn't.
