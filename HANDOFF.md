@@ -46,7 +46,7 @@ assets/css/style.css     591 lines — tokens + every section
 assets/js/main.js        611 lines — the whole scroll engine, vanilla
 assets/img/photos/       11 supplied JPEGs, 703 KB
 assets/img/route/        64 WebP frames of the map, 1.3 MB
-assets/img/steam/        120 WebP frames of the background film, 1.8 MB
+assets/img/steam/        120 WebP frames of the background film, 818 KB
 assets/img/glass/        drops.webp — the wet-pane tile, 12 KB
 assets/img/logo.svg      wordmark + dew mark
 assets/img/favicon.svg
@@ -208,7 +208,7 @@ stops, image stops. Scroll back, it unwinds.
 
 ### 7a. The background film — `assets/img/steam/`
 
-120 WebP stills, 960 × 540, q68, 1.8 MB for the set, painted on a
+120 WebP stills, 960 × 540, q70, 818 KB for the set, painted on a
 `position:fixed` canvas behind everything.
 
 ```js
@@ -238,36 +238,33 @@ Notes that matter:
 **Making the frames** — `tools/film.py`:
 
 ```bash
-python3 tools/film.py
+ffmpeg -i clip.mp4 -t 20 -vf "fps=6" -frames:v 120 -q:v 2 raw/f-%03d.jpg
+python3 tools/film.py raw
 ```
 
-There is no source clip. The film is built from the house photography itself: six
-rooms, twenty frames each, a slow push through every one and a smoothstep dissolve
-into the next across the last third of a segment. In scroll order —
-`sauna-lamp` (the dark room and its lamp), `sauna-bench-dark` (the lit doorway),
-`infrared-slats` (heat), `pool-night` (water), `shower-dark` (the darkest stretch,
-under After Dark) and `towel-figure` (a quiet close).
+The source is a sauna clip, and **only the top third of its frame is used** —
+`BAND = 0.345` — because that is the part of it that belongs on a public page:
+wall, steam, a head in profile. The 16:9 window inside that band pans from
+0.335 to 0.235 of the width across the 120 stills, so the shot drifts as the
+page scrolls while the steam moves on its own.
 
-Everything lives in the four constants and the `ROOMS` table at the top of the
-script: count, output size, dissolve length, quality, and per room a start rect, an
-end rect and an exposure trim. The trim is what keeps the film from flaring as it
-moves from a near-black room to a lit one — `infrared-slats` runs at 0.62,
-`shower-dark` at 1.16. The global grade is the house one: warm the reds, cool the
-blues, brightness 0.86 so the cream type keeps its ground, contrast 1.06, then a
-light unsharp mask to put back what the resize softened. Change `COUNT` and set
-`F.count` in `main.js` to match.
+`BAND` is a line that was checked against every one of the 120 stills before it
+was set. Raising it is a decision about what the page shows, not a tweak.
 
-The source photographs are 736 px wide on the whole (`sauna-lamp` is 1200), so the
-crops sit close to full width and the push-in is shallow — that is the ceiling on
-how far a room can be zoomed before the resize shows. Nothing is blurred anywhere in
-this pipeline.
+The grade is heavier than it was for the photographs: steam holds a lot of
+light, so exposure runs at 0.62, warmed back (R×1.06, B×0.90) and lifted 1.08 in
+contrast, then a light unsharp mask for what the 2.2× resize softens. The page's
+type carries only a text-shadow for ground; a bright background takes it away.
 
-A clip can take the place of the photographs without touching anything else — chop
-it into the same filenames:
+Two traps in the source, both likely in any generated clip:
 
-```bash
-ffmpeg -i clip.mp4 -vf "fps=6,scale=960:-2" -frames:v 120 assets/img/steam/s-%03d.png
-```
+* It tears after about twenty seconds — horizontal RGB streaks across the band —
+  hence `-t 20` in the ffmpeg line. Look at the tail before you use it.
+* A raised limb crosses into the band late in the clip. Same fix.
+
+The clip is **not in the repository**; the stills are. An earlier film built
+from the house photographs — six rooms, a slow push through each, dissolved
+together — is in the history at `a7dcb4d`.
 
 ### 7b. The road up — `assets/img/route/`
 
@@ -441,21 +438,27 @@ data, on purpose. Voice notes if you rewrite:
 
 ---
 
-## 14. The background film, and why it is built the way it is
+## 14. The background film, and what does not go on it
 
-Earlier the film came from a supplied clip, chopped into stills and reduced to
-104 px before being enlarged again — the obscuring baked into the pixels, because
-the clip was explicit and a CSS blur comes off in one devtools click. The client
-asked for a background that reads clearly, and a frame carrying 104 px of detail
-cannot be sharpened: the information is gone, and the clip is not in the
-repository.
+Three versions of this film exist, and the reasoning matters more than any of
+them.
 
-So the film is now built from the house photography instead — real rooms, at full
-photographic detail, graded and dissolved into one continuous move down the page.
-It is sharp because there is nothing in it that needs hiding, and it costs the
-project nothing: the same eleven photographs the page already ships.
+The first came from a supplied clip that was explicit, chopped into stills and
+reduced to 104 px before being enlarged again — the obscuring baked into the
+pixels, because a CSS blur comes off in one devtools click. When the client
+asked for a background that reads clearly, that film could not deliver it: at
+104 px the detail is gone, and the clip was never in the repository.
 
-If footage does arrive later, the ffmpeg line in §7a drops it straight into the
-same filenames and the whole scroll-scrub background works unchanged. Anything
-that would need obscuring to be publishable does not belong on the page at all;
-pick a clip that doesn't.
+The second was built from the house photographs — six rooms at full detail. It
+is in the history at `a7dcb4d` and remains the fallback if there is ever no
+usable footage.
+
+The third is the current one: a sauna clip, with only the clean top third of its
+frame on the page. That is the shape of the answer whenever footage is too much
+for a public site — **crop to what belongs there**, rather than covering what
+does not. A few drops or a blur over the rest is the same material with a sticker
+on it; a band that never contained it is simply a different shot. Check the band
+against every frame, then set `BAND` once.
+
+If footage arrives that needs no cropping at all, raise `BAND` to 1.0 and the
+whole pipeline works unchanged.

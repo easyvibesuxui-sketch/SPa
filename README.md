@@ -91,51 +91,42 @@ gradient rather than a broken image. The menu overlay's set lives in `MENU_IMGS`
 ## The room behind the glass
 
 The whole page sits on one scroll-driven background: **120 stills**, 960 × 540,
-WebP quality 68, 1.8 MB for the set. They are drawn at full photographic
-detail — wood grain, the filament in the lamp, water, tile — because they are
-built from the house photography itself rather than from footage.
+WebP quality 70, 818 KB for the set, drawn at full detail.
 
-`tools/film.py` is the recipe. Six rooms, twenty frames each, a slow push
-through every one and a smoothstep dissolve into the next across the last third
-of a segment:
-
-| Frames | Room | What the visitor is scrolling past |
-|---|---|---|
-| 0 – 19 | `sauna-lamp.jpg` | the dark room and its one lamp — the hero |
-| 20 – 39 | `sauna-bench-dark.jpg` | the lit doorway, the walnut |
-| 40 – 59 | `infrared-slats.jpg` | heat: slats, cove light |
-| 60 – 79 | `pool-night.jpg` | water, candles, steam |
-| 80 – 99 | `shower-dark.jpg` | the darkest stretch — After Dark |
-| 100 – 119 | `towel-figure.jpg` | a quiet close |
-
-Everything is tuned in the four constants and the `ROOMS` table at the top of
-the script: frame count, output size, dissolve length, quality, and per room a
-start rect, an end rect and an exposure trim. The trim is what keeps the film
-from flaring as it moves from a near-black room to a lit one — `infrared-slats`
-runs at 0.62, `shower-dark` at 1.16. The global grade is the house one: warm
-the reds, cool the blues, brightness 0.86 so the cream type keeps its ground,
-contrast 1.06, then a light unsharp mask to put back what the resize softened.
-
-Re-run it after any change to the photographs:
+They come from a sauna clip, and only **the top third of its frame** is used —
+wall, steam, a head in profile. Nothing below that line goes on the page. The
+crop window is 16:9 inside that band and pans slowly across it over the 120
+frames, so the shot drifts as the visitor scrolls while the steam moves on its
+own. `tools/film.py` is the recipe:
 
 ```bash
-python3 tools/film.py
+ffmpeg -i clip.mp4 -t 20 -vf "fps=6" -frames:v 120 -q:v 2 raw/f-%03d.jpg
+python3 tools/film.py raw
 ```
 
-If you change `COUNT`, set `F.count` in `assets/js/main.js` to match.
+Everything is tuned in the constants at the top of the script: `COUNT`, output
+size, `BAND` (the fraction of the source frame taken from the top), `PAN` (the
+window centre, start → end) and the grade. The grade matters more here than it
+did with the photographs: steam holds a great deal of light, so exposure runs at
+**0.62** and the warm trim puts the walnut back — the page's type carries only a
+text-shadow for ground, and a bright background takes it away.
 
-A clip can take the place of the photographs — chop it into the same filenames
-and nothing else changes:
+Two things worth knowing about a clip before it goes in:
 
-```bash
-ffmpeg -i clip.mp4 -vf "fps=6,scale=960:-2" -frames:v 120 assets/img/steam/s-%03d.png
-```
+* **Check the band frame by frame.** `BAND` is a line someone looked at across
+  every still, not a guess. Raising it is a decision, not a tweak.
+* **Check the tail.** This clip tears — horizontal RGB streaks — after about
+  twenty seconds, which is why the ffmpeg line stops at `-t 20`. Generated
+  footage tends to come apart at the end.
 
-Two things to keep. **No autoplay, in either direction** — the frames are
-picked by scroll position and by nothing else; there is no `<video>` anywhere in
-the page. And nothing brighter than the grade above: the text carries its own
-ground with a shadow, and the moment the background flares, the ground stops
-working.
+The clip itself is **not in the repository**; the stills are the deliverable.
+An earlier version of this film was built from the house photographs instead —
+six rooms, a slow push through each — and is in the history at `a7dcb4d` if it
+is ever wanted back.
+
+Nothing plays. There is no `<video>` element anywhere in the page: the scroll
+position picks the frame and nothing else does. Scroll stops, the image stops;
+scroll back and it unwinds.
 
 ### The pane
 
