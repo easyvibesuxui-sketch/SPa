@@ -90,13 +90,14 @@ gradient rather than a broken image. The menu overlay's set lives in `MENU_IMGS`
 
 ## The room behind the glass
 
-The whole page sits on one scroll-driven background: the supplied 25-second clip,
-chopped into **120 stills** at 4.8 fps and frosted in the pixels themselves —
+The whole page sits on one scroll-driven background: the supplied 20-second clip,
+chopped into **120 stills** at 6 fps and frosted in the pixels themselves —
 each frame is reduced to 104 px wide, blurred, enlarged again to 560 px and
 blurred a second time, then warmed and lifted in contrast. The figure is backlit
-in every frame, so what survives the reduction is a dark silhouette against the
-steam: a body's shape, an arm, the light behind it, and nothing else. The set is
-484 KB.
+in every frame, so what survives the reduction is warm wood, moving steam and a
+soft shape where a body is — the light behind it, and nothing else. The set is
+484 KB. `tools/frost.py` is the recipe, with the
+ffmpeg line in its docstring; re-run it to swap the clip.
 
 Do not sharpen it further. 104 px is where the footage reads as footage rather
 than a gradient while the source stays unrecoverable; past it the reduction
