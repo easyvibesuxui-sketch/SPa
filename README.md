@@ -111,12 +111,20 @@ obscuring is baked in.
 ### The pane
 
 In front of the film sits the glass it is seen through: `assets/img/glass/drops.webp`,
-a seamless 640 px tile of rain beading on a cold window — each drop drawn with a
-dark rim above, a bright refracted rim below and a specular dot, a few of them
-sliding with a tail behind. It tiles at 540 px, at 58% opacity, drifting on a
-74-second loop, with a warm soft-light wash over it on a slower counter-drift. The
-canvas itself carries a 2.5 px blur so the room reads as *behind* something rather
-than merely low-resolution.
+a seamless 1024 px tile carrying **eighteen beads and nothing else** — four large,
+four mid-sized, ten specks — scattered by a minimum-distance rule so the tile never
+clusters and the repeat never announces itself. Each bead is drawn with a dark rim
+above, a bright refracted rim below and a specular dot. It tiles at 1100 px, which
+puts roughly **eight to ten drops on a laptop screen**: a pane someone has already
+wiped, not a downpour.
+
+No mist, and no sliding drips. At this density a tail reads as a stack of rings
+rather than water, so there are none; adding beads back to make drips work would
+undo the point.
+
+The tile sits at 72% opacity on a 74-second drift, with a warm soft-light wash over
+it on a slower counter-drift. The canvas beneath carries a 0.8 px blur — just enough
+that the room sits *behind* something.
 
 The pane is the only treatment that may be tuned by eye. The frosting underneath
 it is not — see above.
