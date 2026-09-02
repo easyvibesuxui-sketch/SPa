@@ -88,6 +88,28 @@ Four scenic frames — Sunset Deck, the third water frame, the table and Find Us
 gradient rather than a broken image. The menu overlay's set lives in `MENU_IMGS` in
 `assets/js/main.js`.
 
+## The room behind the glass
+
+The whole page sits on one scroll-driven background: the supplied 25-second clip,
+chopped into **120 stills** at 4.8 fps and frosted in the pixels themselves —
+each frame is reduced to 64 px wide, blurred, enlarged again to 560 px and
+blurred a second time, then desaturated, darkened and warmed. What ships is a
+moving field of steam-coloured light with a soft silhouette in it; nothing in the
+source survives the reduction, and the whole set is 153 KB.
+
+The frames live in `assets/img/steam/`. **The source video is deliberately not in
+the repository** — only the frosted stills, and they are not recoverable back to
+the original. Do not replace this with a `<video>` under a CSS blur: a CSS filter
+is removed in one devtools click, and the point of the treatment is that the
+obscuring is baked in.
+
+A fixed canvas draws one frame per scroll position across the entire document —
+nothing plays on its own — under a condensation layer (droplets and streaks that
+drift over 44 s) and a scrim that keeps text legible. Sections that used to be
+opaque are now translucent so the room shows through; the hero, After Dark and
+the road up keep their own imagery on top. Under `prefers-reduced-motion` a
+single mid-clip frame is drawn and never changes.
+
 ## The road up
 
 The location section runs on the supplied route clip (8 s, 1280×720), chopped into

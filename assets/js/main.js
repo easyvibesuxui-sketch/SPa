@@ -64,7 +64,7 @@
   function measure() {
     vh = window.innerHeight; vw = window.innerWidth;
     maxScroll = Math.max(0, document.documentElement.scrollHeight - vh);
-    cacheParallax(); cacheHScroll(); cacheWords(); cacheRoute(); rFit();
+    cacheParallax(); cacheHScroll(); cacheWords(); cacheRoute(); rFit(); fFit();
   }
 
   window.addEventListener('wheel', function (e) {
@@ -322,6 +322,65 @@
     ioV.observe(darkHost);
   }
 
+  /* ── 12d. the room behind the glass ───────────────────────
+     A frosted still per scroll position, across the whole page.
+     It never plays by itself — no autoplay, in either direction. */
+  var fCanvas = document.getElementById('filmCanvas');
+  var F = { count: 120, imgs: [], step: 1, ctx: null, cur: 0, shown: -1, w: 0, h: 0 };
+
+  function fSrc(i) { return 'assets/img/steam/s-' + (i < 10 ? '00' : i < 100 ? '0' : '') + i + '.webp'; }
+
+  function fFit() {
+    if (!F.ctx) return;
+    var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    F.w = fCanvas.clientWidth; F.h = fCanvas.clientHeight;
+    if (!F.w || !F.h) return;
+    fCanvas.width = Math.round(F.w * dpr); fCanvas.height = Math.round(F.h * dpr);
+    F.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    F.shown = -1;
+    fPaint(Math.round(F.cur));
+  }
+
+  function fPaint(i) {
+    if (!F.ctx || !F.w) return;
+    var img = null, j;
+    for (j = i; j >= 0; j--) { if (F.imgs[j] && F.imgs[j].ok) { img = F.imgs[j]; break; } }
+    if (!img) { for (j = i; j < F.count; j++) { if (F.imgs[j] && F.imgs[j].ok) { img = F.imgs[j]; break; } } }
+    if (!img || j === F.shown) return;
+    F.shown = j;
+    var s = Math.max(F.w / img.naturalWidth, F.h / img.naturalHeight);
+    var dw = img.naturalWidth * s, dh = img.naturalHeight * s;
+    F.ctx.drawImage(img, (F.w - dw) / 2, (F.h - dh) / 2, dw, dh);
+  }
+
+  function fLoad(only) {
+    var list = only !== undefined ? [only] : [];
+    if (!list.length) for (var k = 0; k < F.count; k += F.step) list.push(k);
+    list.forEach(function (i) {
+      if (F.imgs[i]) return;
+      var im = new Image();
+      im.decoding = 'async';
+      im.onload = function () { im.ok = true; if (F.shown < 0 || Math.abs(i - F.cur) <= F.step) fPaint(Math.round(F.cur)); };
+      im.src = fSrc(i);
+      F.imgs[i] = im;
+    });
+  }
+
+  if (fCanvas) {
+    F.ctx = fCanvas.getContext('2d', { alpha: true });
+    F.step = window.innerWidth < 760 ? 2 : 1;
+    fFit();
+    if (reduce) {
+      F.cur = Math.round(F.count / 2);
+      fLoad(F.cur);
+    } else {
+      fLoad(0);
+      var startAll = function () { fLoad(); };
+      if (window.requestIdleCallback) requestIdleCallback(startAll, { timeout: 2500 });
+      else setTimeout(startAll, 1200);
+    }
+  }
+
   /* ── 12c. the road up ─────────────────────────────────────
      The clip is chopped into stills and the scroll position picks
      the frame — nothing plays on its own, in either direction. --- */
@@ -478,6 +537,12 @@
         var o = clamp(lit - k, 0, 1);
         b.words[k].style.opacity = (0.14 + 0.86 * o).toFixed(3);
       }
+    }
+
+    /* the room behind the glass — one frame per scroll position */
+    if (fCanvas && !reduce && maxScroll > 0) {
+      F.cur = lerp(F.cur, (y / maxScroll) * (F.count - 1), 0.12);
+      fPaint(Math.round(F.cur / F.step) * F.step);
     }
 
     /* the road up */
