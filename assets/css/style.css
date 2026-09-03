@@ -118,7 +118,8 @@ ul{list-style:none}
 .h-display,.lede,.p,.sig,.facts,.caption,.minor,.trow h3,.rcard p,.rcard h3,.rcard__meta,
 .dcard p,.dcard h3,.dcard span,.tick__d,.tick__p,.tick h3,.hours li,.notes p,.temps li,
 .table__facts li,.leg,.route__addr,.footer__line,.footer__nav a,.footer__meta,.hero__block-s,
-.menu__info,.dark__note,.trow__d,.trow__p,.eyebrow,.hero__ka{text-shadow:0 1px 32px rgba(6,5,4,.96),0 1px 10px rgba(6,5,4,.8),0 0 3px rgba(6,5,4,.5)}
+.menu__info,.dark__note,.trow__d,.trow__p,.eyebrow,.hero__ka{text-shadow:0 1px 2px rgba(6,5,4,.92),0 0 7px rgba(6,5,4,.8),
+  0 1px 16px rgba(6,5,4,.92),0 1px 38px rgba(6,5,4,.98)}
 
 /* ── overlays ─────────────────────────────────────────────── */
 .grain{
@@ -340,18 +341,25 @@ section{position:relative}
    The pattern is the one .dark already used. ----------- */
 .intro,.house,.water,.touch,.table,.tickets{position:relative;isolation:isolate}
 .hs__sticky{isolation:isolate}
+/* the whole layer is translucent, so the film reads through the middle of a
+   section and not only at its feathered ends. Brightness is raised to pay for
+   the opacity — the ground stays a ground, it just stops being a lid. */
 .secbg{position:absolute;inset:0;z-index:-2;overflow:hidden;pointer-events:none;
+  opacity:.5;
   -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 15%,#000 85%,transparent 100%);
   mask-image:linear-gradient(180deg,transparent 0,#000 15%,#000 85%,transparent 100%)}
 .secbg img{position:absolute;top:-9%;left:0;width:100%;height:118%;
-  object-fit:cover;filter:saturate(.6) brightness(.42) contrast(1.05);will-change:transform}
-.secbg--soft img{width:112%;left:-6%;filter:saturate(.55) brightness(.5) contrast(1.02) blur(16px)}
+  object-fit:cover;filter:saturate(.62) brightness(.66) contrast(1.02);will-change:transform}
+.secbg--soft img{width:112%;left:-6%;
+  filter:saturate(.58) brightness(.76) contrast(1) blur(16px)}
+/* a breath of ground for the type, not a black wash */
 .secbg::after{content:"";position:absolute;inset:0;
   background:
-    linear-gradient(180deg,rgba(11,9,8,.62),rgba(11,9,8,.3) 42%,rgba(11,9,8,.68)),
-    radial-gradient(130% 92% at 50% 42%,rgba(11,9,8,0),rgba(11,9,8,.5))}
+    linear-gradient(180deg,rgba(11,9,8,.48),rgba(11,9,8,.16) 42%,rgba(11,9,8,.52)),
+    radial-gradient(130% 92% at 50% 42%,rgba(11,9,8,0),rgba(11,9,8,.3))}
 @media (max-width:760px){
-  .secbg img{filter:saturate(.6) brightness(.34) contrast(1.05)}
+  .secbg{opacity:.58}
+  .secbg img{filter:saturate(.62) brightness(.56) contrast(1.02)}
 }
 .intro,.house,.touch,.table,.water{background:none}
 
@@ -446,11 +454,11 @@ section{position:relative}
 
 /* 06 after dark */
 .dark{position:relative;padding:clamp(120px,20vh,240px) var(--pad);overflow:hidden;isolation:isolate}
-.dark__media{position:absolute;inset:0;z-index:-2}
-.dark__media img{width:100%;height:128%;position:absolute;top:-14%;left:0;object-fit:cover;filter:saturate(.6) brightness(.4) contrast(1.1);will-change:transform}
+.dark__media{position:absolute;inset:0;z-index:-2;opacity:.6}
+.dark__media img{width:100%;height:128%;position:absolute;top:-14%;left:0;object-fit:cover;filter:saturate(.62) brightness(.62) contrast(1.04);will-change:transform}
 .dark__wash{position:absolute;inset:0;z-index:-1;background:
   radial-gradient(70% 60% at 24% 46%,rgba(224,164,105,.15),transparent 62%),
-  linear-gradient(90deg,rgba(9,7,6,.94) 0%,rgba(9,7,6,.78) 46%,rgba(9,7,6,.5) 100%)}
+  linear-gradient(90deg,rgba(9,7,6,.7) 0%,rgba(9,7,6,.45) 46%,rgba(9,7,6,.2) 100%)}
 .dark__inner{margin:0 auto;display:grid;gap:46px;justify-items:start;max-width:min(1500px,100%)}
 .dark .lede{max-width:38ch}
 .dark__pair{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,1.8vw,30px);width:min(520px,100%);margin-top:10px}

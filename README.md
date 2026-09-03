@@ -156,13 +156,26 @@ than as a room. The image is set to 112% width at `left:-6%` so the blur has no
 edge to fringe against — the parallax module owns `transform`, so width is the
 only lever available there.
 
-Two things make them sit rather than shout. The image is dimmed —
-`saturate(.6) brightness(.42) contrast(1.05)`, and .34 below 760 px — with a
-vertical scrim and a soft radial over it. And the whole layer is feathered top
-and bottom with `mask-image`, transparent for the first and last 15%, so the
-film reads between sections instead of the page cutting from one photograph
-to the next. Each ground also takes `data-parallax="0.08"`, so it drifts a
-little against the content.
+Three things make them sit rather than shout.
+
+**The layer is translucent** — `opacity:.5`, and `.58` below 760 px. That is
+the setting that matters: at full opacity a ground is a lid, and the film only
+survives at the feathered ends. Brightness is raised to `.66` to pay for it, so
+the ground is still a ground.
+
+**The scrim is a breath, not a wash** — `rgba(11,9,8,.48)` at the top and
+bottom of a section, falling to `.16` through the middle, with a soft radial
+over it. It exists to give the type a ground, and stops there.
+
+**The layer is feathered** top and bottom with `mask-image`, transparent for
+the first and last 15%, so the page never cuts from one photograph to the next.
+Each ground also takes `data-parallax="0.08"`, so it drifts against the content.
+
+Because the grounds are translucent, the type carries more of its own weight:
+the shared `text-shadow` is a tight halo close to the letterform *and* the wide
+one, so small text stays readable where the film's lit wall passes behind it.
+Check the small text — card meta, hours, list labels — not the headlines, when
+tuning any of this.
 
 Keep a section's ground different from the photographs shown inside it, and
 keep the type's contrast: the text carries only a `text-shadow` for ground.

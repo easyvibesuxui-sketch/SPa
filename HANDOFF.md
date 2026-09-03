@@ -298,11 +298,20 @@ ground among warm ones · Touch `rain-face` · After Dark its existing
 `.dark__media` · Table `bath-window` · Tickets `pool-night`. **The Road Up gets
 none** — the map canvas needs black under it.
 
-The image runs at `saturate(.6) brightness(.42) contrast(1.05)` (.34 on phones)
-under a vertical scrim and a soft radial, and the layer is feathered top and
-bottom with `mask-image` — transparent for the first and last 15% — so the film
-still breathes between sections rather than the page cutting photograph to
-photograph. `data-parallax="0.08"` on each drifts it against the content.
+The layer is **translucent** — `opacity:.5`, `.58` on phones — which is the
+setting that matters: at full opacity a ground is a lid and the film survives
+only at the feathered ends. The image runs at `saturate(.62) brightness(.66)
+contrast(1.02)` to pay for that, under a scrim that is a breath rather than a
+wash (`rgba(11,9,8,.48)` at the ends, `.16` through the middle). The layer is
+feathered top and bottom with `mask-image` — transparent for the first and last
+15% — so the page never cuts photograph to photograph, and `data-parallax="0.08"`
+drifts it against the content. After Dark's own `.dark__media` runs the same
+way at `opacity:.6`.
+
+The type pays for the translucency: the shared `text-shadow` carries a tight
+halo close to the letterform as well as the wide one. When tuning any of these
+numbers, judge them on the small text — card meta, hours, list labels — where
+the film's lit wall passes behind 12 px type, not on the headlines.
 
 ## 8. The surface — no file at all
 
