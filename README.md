@@ -150,6 +150,12 @@ section that is `position:relative; isolation:isolate`.
 **The Road Up has none**, deliberately: the map is drawn on a canvas and needs
 black under it.
 
+Water takes `.secbg--soft` as well: its ground is blurred 16 px, because a
+photograph full of small bright detail behind small type reads as noise rather
+than as a room. The image is set to 112% width at `left:-6%` so the blur has no
+edge to fringe against — the parallax module owns `transform`, so width is the
+only lever available there.
+
 Two things make them sit rather than shout. The image is dimmed —
 `saturate(.6) brightness(.42) contrast(1.05)`, and .34 below 760 px — with a
 vertical scrim and a soft radial over it. And the whole layer is feathered top
@@ -160,6 +166,15 @@ little against the content.
 
 Keep a section's ground different from the photographs shown inside it, and
 keep the type's contrast: the text carries only a `text-shadow` for ground.
+
+### Rules
+
+Separators are hairlines that fade out rather than stopping — a
+`linear-gradient` to `transparent` at both ends, at `rgba(199,180,156,.2)` for a
+horizontal rule and `.15` for a vertical one. The temperature row is the pattern:
+no box, no filled ground, a fading rule above it and one between each pair of
+columns, and the rules follow the grid as it folds — hidden on the first column
+of each row at two columns, and turned horizontal at one.
 
 ### The surface
 

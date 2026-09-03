@@ -345,6 +345,7 @@ section{position:relative}
   mask-image:linear-gradient(180deg,transparent 0,#000 15%,#000 85%,transparent 100%)}
 .secbg img{position:absolute;top:-9%;left:0;width:100%;height:118%;
   object-fit:cover;filter:saturate(.6) brightness(.42) contrast(1.05);will-change:transform}
+.secbg--soft img{width:112%;left:-6%;filter:saturate(.55) brightness(.5) contrast(1.02) blur(16px)}
 .secbg::after{content:"";position:absolute;inset:0;
   background:
     linear-gradient(180deg,rgba(11,9,8,.62),rgba(11,9,8,.3) 42%,rgba(11,9,8,.68)),
@@ -407,8 +408,17 @@ section{position:relative}
 .water__m--3{left:38%;bottom:-6%;width:clamp(180px,24vw,340px);aspect-ratio:1/1}
 .water__copy{position:relative;max-width:1500px;margin:clamp(84px,11vw,160px) auto 0;width:100%;display:grid;gap:46px;justify-items:center;text-align:center}
 .water__copy .lede{text-align:center;max-width:26ch}
-.temps{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(28px,3.6vw,60px);width:100%;border-top:1px solid var(--line);padding-top:46px}
-.temps li{display:grid;gap:8px;text-align:center}
+.temps{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  width:100%;padding-top:clamp(40px,4.8vw,66px)}
+/* rules that fade out rather than stopping — a hairline, not an edge */
+.temps::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(199,180,156,.2) 14%,
+    rgba(199,180,156,.2) 86%,transparent)}
+.temps li{position:relative;display:grid;gap:10px;text-align:center;
+  padding:0 clamp(16px,2.4vw,44px)}
+.temps li + li::before{content:"";position:absolute;left:0;top:4%;bottom:4%;width:1px;
+  background:linear-gradient(180deg,transparent,rgba(199,180,156,.15) 24%,
+    rgba(199,180,156,.15) 76%,transparent)}
 .temps b{font-family:var(--f-price);font-weight:300;font-size:clamp(2rem,3.6vw,3.4rem);color:var(--amber);line-height:1}
 .temps span{font-size:12.5px;letter-spacing:.01em;color:rgba(242,236,228,.86);line-height:1.7}
 
@@ -549,7 +559,9 @@ section{position:relative}
   .nav{display:none}
   .house__pair{grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,60px)}
   .media--b{grid-column:1/-1;margin-top:0;max-width:52%;aspect-ratio:16/10}
-  .stats,.temps,.tickets__grid{grid-template-columns:repeat(2,1fr);gap:36px}
+  .stats,.tickets__grid{grid-template-columns:repeat(2,1fr);gap:36px}
+  .temps{grid-template-columns:repeat(2,1fr);row-gap:40px}
+  .temps li:nth-child(2n+1)::before{display:none}
   .dark__cards{grid-template-columns:1fr;gap:26px}
   .dark__pair{width:100%}
   .menu__grid{grid-template-columns:1fr}
@@ -581,7 +593,11 @@ section{position:relative}
 @media (max-width:560px){
   .hero__top{flex-direction:column;gap:8px}
   .eyebrow--r{text-align:left}
-  .stats,.temps,.tickets__grid{grid-template-columns:1fr}
+  .stats,.tickets__grid{grid-template-columns:1fr}
+  .temps{grid-template-columns:1fr;row-gap:34px}
+  .temps li{padding:0}
+  .temps li + li::before{left:12%;right:12%;top:-17px;bottom:auto;width:auto;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(199,180,156,.15),transparent)}
   .footer__bottom{flex-direction:column;gap:10px}
   .hero__top{top:80px}
   }
